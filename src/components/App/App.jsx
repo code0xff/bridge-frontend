@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Index } from '../Index'
 import { Evaluation } from '../Evaluation'
-import '@elastic/eui/dist/eui_theme_dark.json'
+import { Xchain } from '../Xchain'
 import '@elastic/eui/dist/eui_theme_light.json'
 import { EuiProvider } from '@elastic/eui';
 
@@ -13,6 +13,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} exact/>
+            <Route path="/xchain" element={<Xchain />} />
             <Route path="/evaluation" element={<Evaluation />} />
           </Routes>
         </BrowserRouter>
