@@ -8,7 +8,7 @@ import {
 
 function Score({value, setValue}) {
   return (
-    <div className="score-compoenent">
+    <div className="score-component">
       <EuiFlexGroup justifyContent="spaceBetween" direction="row">
         <EuiFlexItem>
           <EuiButton size="s" fill={value === 1 ? true : false} onClick={() => setValue(1)}>1</EuiButton>

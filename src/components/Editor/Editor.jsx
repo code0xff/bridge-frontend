@@ -13,7 +13,7 @@ function Editor({value, setValue}) {
   } = getDefaultEuiMarkdownPlugins({ exclude: ['tooltip'] })
 
   return (
-    <div className="editor-compoenent">
+    <div className="editor-component">
       <EuiMarkdownEditor
         aria-label="EUI markdown editor with no default plugins demo"
         value={value}
