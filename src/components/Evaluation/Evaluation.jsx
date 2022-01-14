@@ -1,6 +1,5 @@
 import React from 'react'
 import { Editor } from '../Editor'
-import '@elastic/eui/dist/eui_theme_dark.json'
 import '@elastic/eui/dist/eui_theme_light.json'
 import {
   EuiButton,
@@ -9,12 +8,18 @@ import {
   EuiTitle,
 } from '@elastic/eui';
 import { useGeneratedHtmlId } from '@elastic/eui'
+import { Score } from '../Score'
 
 function Evaluation() {
-  const [dec, setDec] = React.useState('# Dectralization\n')
-  const [per, setPer] = React.useState('# Performance\n')
-  const [sec, setSec] = React.useState('# Security\n')
-  const [scal, setScal] = React.useState('# Scalability\n')
+  const [decDetail, setDecDetail] = React.useState('# Dectralization\n')
+  const [perDetail, setPerDetail] = React.useState('# Performance\n')
+  const [secDetail, setSecDetail] = React.useState('# Security\n')
+  const [scalDetail, setScalDetail] = React.useState('# Scalability\n')
+
+  const [decScore, setDecScore] = React.useState(3)
+  const [perScore, setPerScore] = React.useState(3)
+  const [secScore, setSecScore] = React.useState(3)
+  const [scalScore, setScalScore] = React.useState(3)
 
   const multipleAccordionsId__1 = useGeneratedHtmlId({
     prefix: 'multipleAccordions',
@@ -47,7 +52,8 @@ function Evaluation() {
         }
         paddingSize="l"
       >
-        <Editor value={dec} setValue={setDec}/>
+        <Editor value={decDetail} setValue={setDecDetail}/>
+        <Score name="decentralization" value={decScore} setValue={setDecScore}/>
       </EuiAccordion>
       <EuiSpacer />
       <EuiAccordion
@@ -60,7 +66,8 @@ function Evaluation() {
         }
         paddingSize="l"
       >
-        <Editor value={per} setValue={setPer}/>
+        <Editor value={perDetail} setValue={setPerDetail}/>
+        <Score name="performance" value={perScore} setValue={setPerScore}/>
       </EuiAccordion>
       <EuiSpacer />
       <EuiAccordion
@@ -73,7 +80,8 @@ function Evaluation() {
         }
         paddingSize="l"
       >
-        <Editor value={sec} setValue={setSec}/>
+        <Editor value={secDetail} setValue={setSecDetail}/>
+        <Score name="security" value={secScore} setValue={setSecScore}/>
       </EuiAccordion>
       <EuiSpacer />
       <EuiAccordion
@@ -86,7 +94,8 @@ function Evaluation() {
         }
         paddingSize="l"
       >
-        <Editor value={scal} setValue={setScal}/>
+        <Editor value={scalDetail} setValue={setScalDetail}/>
+        <Score name="scalability" value={scalScore} setValue={setScalScore}/>
       </EuiAccordion>
       <EuiSpacer />
       <div className="evaluation-footer">
