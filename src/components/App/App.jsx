@@ -1,10 +1,11 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Index } from '../Index'
 import { Evaluation } from '../Evaluation'
 import { Xchain } from '../Xchain'
+import { Viewer } from '../Viewer'
 import '@elastic/eui/dist/eui_theme_light.json'
-import { EuiProvider } from '@elastic/eui';
+import { EuiProvider } from '@elastic/eui'
 
 function App() {
   return (
@@ -13,8 +14,13 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} exact/>
-            <Route path="/xchain" element={<Xchain />} />
-            <Route path="/evaluation" element={<Evaluation />} />
+            <Route path="xchain" element={<Xchain />} />
+            <Route path="evaluation" element={<Evaluation />}>
+              <Route path=":name" element={<Evaluation />} />
+            </Route>
+            <Route path="viewer" element={<Viewer />}>
+              <Route path=":name" element={<Viewer />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </div>

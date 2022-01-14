@@ -11,19 +11,19 @@ function Score({value, setValue}) {
     <div className="score-compoenent">
       <EuiFlexGroup justifyContent="spaceBetween" direction="row">
         <EuiFlexItem>
-          <EuiButton fill={value === 1 ? true : false} onClick={() => setValue(1)}>1</EuiButton>
+          <EuiButton size="s" fill={value === 1 ? true : false} onClick={() => setValue(1)}>1</EuiButton>
         </EuiFlexItem>
         <EuiFlexItem>
-          <EuiButton fill={value === 2 ? true : false} onClick={() => setValue(2)}>2</EuiButton>
+          <EuiButton size="s" fill={value === 2 ? true : false} onClick={() => setValue(2)}>2</EuiButton>
         </EuiFlexItem>
         <EuiFlexItem>
-          <EuiButton fill={value === 3 ? true : false} onClick={() => setValue(3)}>3</EuiButton>
+          <EuiButton size="s" fill={value === 3 ? true : false} onClick={() => setValue(3)}>3</EuiButton>
         </EuiFlexItem>
         <EuiFlexItem>
-          <EuiButton fill={value === 4 ? true : false} onClick={() => setValue(4)}>4</EuiButton>
+          <EuiButton size="s" fill={value === 4 ? true : false} onClick={() => setValue(4)}>4</EuiButton>
         </EuiFlexItem>
         <EuiFlexItem>
-          <EuiButton fill={value === 5 ? true : false} onClick={() => setValue(5)}>5</EuiButton>
+          <EuiButton size="s" fill={value === 5 ? true : false} onClick={() => setValue(5)}>5</EuiButton>
         </EuiFlexItem>
       </EuiFlexGroup>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Editor } from '../Editor'
 import '@elastic/eui/dist/eui_theme_light.json'
 import {
@@ -11,6 +12,8 @@ import { useGeneratedHtmlId } from '@elastic/eui'
 import { Score } from '../Score'
 
 function Evaluation() {
+  const params = useParams()
+
   const [decDetail, setDecDetail] = React.useState('# Dectralization\n')
   const [perDetail, setPerDetail] = React.useState('# Performance\n')
   const [secDetail, setSecDetail] = React.useState('# Security\n')
@@ -38,16 +41,21 @@ function Evaluation() {
     suffix: 'fourth',
   })
 
-
   return (
     <div className="evaluation-component">
+      <div className="evaluation-header">
+        <EuiTitle size="l">
+          <h1>{params.name}</h1>
+        </EuiTitle>
+      </div>
+      <EuiSpacer />
       <EuiAccordion
         id={multipleAccordionsId__1}
         arrowDisplay="none"
         initialIsOpen={true}
         buttonContent={
-          <EuiTitle>
-            <h1># Dectralization</h1>
+          <EuiTitle size="m">
+            <h3># Dectralization</h3>
           </EuiTitle>
         }
         paddingSize="l"
@@ -60,8 +68,8 @@ function Evaluation() {
         id={multipleAccordionsId__2}
         arrowDisplay="none"
         buttonContent={
-          <EuiTitle>
-            <h1># Performance</h1>
+          <EuiTitle size="m">
+            <h3># Performance</h3>
           </EuiTitle>
         }
         paddingSize="l"
@@ -74,8 +82,8 @@ function Evaluation() {
         id={multipleAccordionsId__3}
         arrowDisplay="none"
         buttonContent={
-          <EuiTitle>
-            <h1># Security</h1>
+          <EuiTitle size="m">
+            <h3># Security</h3>
           </EuiTitle>
         }
         paddingSize="l"
@@ -88,8 +96,8 @@ function Evaluation() {
         id={multipleAccordionsId__4}
         arrowDisplay="none"
         buttonContent={
-          <EuiTitle>
-            <h1># Scalability</h1>
+          <EuiTitle size="m">
+            <h3># Scalability</h3>
           </EuiTitle>
         }
         paddingSize="l"
@@ -102,7 +110,7 @@ function Evaluation() {
         <EuiButton color="primary" fill>Save</EuiButton>
       </div>
     </div>
-  );
+  )
 }
 
 export default Evaluation
