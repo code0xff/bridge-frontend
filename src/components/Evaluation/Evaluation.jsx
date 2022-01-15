@@ -7,12 +7,103 @@ import {
   EuiAccordion,
   EuiSpacer,
   EuiTitle,
+  EuiHeader,
+  EuiHeaderLogo,
+  EuiSwitch,
+  EuiHeaderSectionItemButton,
+  EuiAvatar,
+  EuiIcon
 } from '@elastic/eui';
 import { useGeneratedHtmlId } from '@elastic/eui'
 import { Score } from '../Score'
 
 function Evaluation() {
+
   const params = useParams()
+  
+  const [isFixed, setIsFixed] = React.useState(false);
+
+  const breadcrumbs = [
+    {
+      text: 'Bridge',
+      href: '#',
+      onClick: (e) => {
+        e.preventDefault();
+      },
+    },
+    {
+      text: 'Multichain',
+      href: '#',
+      onClick: (e) => {
+        e.preventDefault();
+      },
+    },
+    {
+      text: 'Evaluation',
+    },
+  ];
+
+  React.useEffect(() => {
+    if (isFixed) document.body.classList.add('euiBody--headerIsFixed--double');
+
+    return () => {
+      document.body.classList.remove('euiBody--headerIsFixed--double');
+    };
+  }, [isFixed]);
+
+  const headers = (
+    <>
+      <EuiHeader
+        theme="dark"
+        position={isFixed ? 'fixed' : 'static'}
+        sections={[
+          {
+            items: [
+              <EuiHeaderLogo iconType="logoElastic">Bridge Evaluation Platform</EuiHeaderLogo>,
+            ],
+            borders: 'none',
+          },
+          {
+            items: [
+              <EuiHeaderSectionItemButton aria-label="Account menu">
+                <EuiAvatar name="John Username" size="s" />
+              </EuiHeaderSectionItemButton>,
+            ],
+            borders: 'none',
+          },
+        ]}
+      />
+      <EuiHeader
+        position={isFixed ? 'fixed' : 'static'}
+        sections={[
+          {
+            items: [
+              /*
+              <EuiHeaderSectionItemButton aria-label="Account menu">
+                <EuiAvatar type="space" name="Bridge" size="s" />
+              </EuiHeaderSectionItemButton>,
+              */
+            ],
+            breadcrumbs: breadcrumbs,
+            borders: 'right',
+          },
+          {
+            items: [
+              <EuiHeaderSectionItemButton
+                aria-label="News feed: Updates available"
+                notification={true}
+              >
+                <EuiIcon type="cheer" size="m" />
+              </EuiHeaderSectionItemButton>,
+            ],
+            borders: 'none',
+          },
+        ]}
+      />
+    </>
+  );
+
+
 
   const [decDetail, setDecDetail] = React.useState('# Dectralization\n')
   const [perDetail, setPerDetail] = React.useState('# Performance\n')
@@ -43,6 +134,14 @@ function Evaluation() {
 
   return (
     <div className="evaluation-component">
+      <EuiSwitch
+        label={'Make header fixed position'}
+        checked={isFixed}
+        onChange={(e) => setIsFixed(e.target.checked)}
+      />
+      <EuiSpacer />
+      {headers}
+
       <div className="evaluation-header">
         <EuiTitle size="l">
           <h1>{params.name}</h1>
