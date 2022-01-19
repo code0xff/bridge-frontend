@@ -13,12 +13,22 @@ import {
   EuiForm,
   EuiFormRow,
   EuiSpacer,
+  EuiImage,
 } from '@elastic/eui'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Xchain() {
   const [modalVisible, setModalVisible] = React.useState(false)
   const [selectedName, setSelectedName] = React.useState('')
+  const [lastLoadedXchainId, setLastLoadedXchainId] = React.useState(0)
+  const [loadedXchains, setLoadedXchains] = React.useState([])
+
+  const navigate = useNavigate()
+
+  React.useEffect(() => {
+    _loadXchains(lastLoadedXchainId, lastLoadedXchainId + 24)
+  }, [])
 
   const _onClickXchain = (name) => {
     setSelectedName(name)
@@ -29,38 +39,83 @@ function Xchain() {
     setModalVisible(false)
   }
 
-  return (
-    <div className="xchain-component">
-      <EuiFlexGroup gutterSize="l">
+  const _loadXchains = async (fromId, toId) => {
+    const response = await axios.get(`/api/xchain/from/${fromId}/to/${toId}`)
+    const xchains = response.data
+
+    if (xchains.length > 0) {
+      setLoadedXchains(...loadedXchains, xchains)
+      setLastLoadedXchainId(toId)
+    }
+  }
+
+  const _renderXchains = () => {
+    if (!loadedXchains) {
+      return
+    }
+    console.log(loadedXchains)
+    let rowSize = parseInt(loadedXchains.length / 4)
+
+    const groupComponents = []
+    groupComponents.push(
+      <EuiFlexGroup gutterSize="s">
         <EuiFlexItem>
           <EuiCard
-            title={"Polkadot"}
-            description="Xchain Detail Part"
-            onClick={() => {_onClickXchain('Polkadot')}}
-          />
-        </EuiFlexItem>
-        <EuiFlexItem>
-          <EuiCard
-            title={"Cosmos"}
-            description="Xchain Detail Part"
-            onClick={() => {_onClickXchain('Cosmos')}}
-          />
-        </EuiFlexItem>
-        <EuiFlexItem>
-          <EuiCard
-            title={"Multichain"}
-            description="Xchain Detail Part"
-            onClick={() => {_onClickXchain('Multichain')}}
-          />
-        </EuiFlexItem>
-        <EuiFlexItem>
-          <EuiCard
-            title={"Comming Soon"}
-            isDisabled={true}
+            title="Add New Xchain"
+            onClick={() => {
+              navigate("/creator")
+            }}
           />
         </EuiFlexItem>
       </EuiFlexGroup>
-      <EuiSpacer/>
+    )
+    groupComponents.push(
+      <EuiSpacer />
+    )
+    for (let i = 0; i <= rowSize; i++) {
+      const itemCompnents = []
+      for (let j = 4 * i; j < 4 * (i + 1); j++) {
+        if (j < loadedXchains.length) {
+          itemCompnents.push(
+            <EuiFlexItem>
+              <EuiCard
+                icon={
+                  <EuiImage
+                    size={50}
+                    alt="Xchain Icon"
+                    src={loadedXchains[j].xchain_image}
+                  />
+                }
+                title={loadedXchains[j].xchain_en_name}
+                description={loadedXchains[j].xchain_detail}
+                onClick={() => {_onClickXchain(loadedXchains[j].xchain_en_name)}}
+              />
+            </EuiFlexItem>
+          )
+        } else {
+          itemCompnents.push(
+            <EuiFlexItem>
+              <EuiCard
+                title={"Comming Soon"}
+                isDisabled={true}
+              />
+            </EuiFlexItem>
+          )
+        }
+      }
+      groupComponents.push(
+        <EuiFlexGroup gutterSize="l">
+          {itemCompnents}
+        </EuiFlexGroup>
+      )
+      groupComponents.push(<EuiSpacer/>)
+    }
+    return groupComponents
+  }
+
+  return (
+    <div className="xchain-component">
+      {_renderXchains()}
       {
         modalVisible ?
           <EuiOverlayMask>
