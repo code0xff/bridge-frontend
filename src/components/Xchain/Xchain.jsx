@@ -21,13 +21,12 @@ import axios from 'axios'
 function Xchain() {
   const [modalVisible, setModalVisible] = React.useState(false)
   const [selectedName, setSelectedName] = React.useState('')
-  const [lastLoadedXchainId, setLastLoadedXchainId] = React.useState(0)
   const [loadedXchains, setLoadedXchains] = React.useState([])
 
   const navigate = useNavigate()
 
   React.useEffect(() => {
-    _loadXchains(lastLoadedXchainId, lastLoadedXchainId + 24)
+    _loadXchains()
   }, [])
 
   const _onClickXchain = (name) => {
@@ -40,12 +39,11 @@ function Xchain() {
   }
 
   const _loadXchains = async (fromId, toId) => {
-    const response = await axios.get(`/api/xchain/from/${fromId}/to/${toId}`)
+    const response = await axios.get(`/api/xchain`)
     const xchains = response.data
 
     if (xchains.length > 0) {
       setLoadedXchains(...loadedXchains, xchains)
-      setLastLoadedXchainId(toId)
     }
   }
 
