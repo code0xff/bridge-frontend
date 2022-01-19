@@ -7,7 +7,6 @@ import {
   EuiSpacer,
   EuiImage,
   EuiTextArea,
-  EuiToast,
   EuiGlobalToastList,
 } from '@elastic/eui'
 import axios from 'axios'
@@ -24,8 +23,17 @@ function Creator() {
 
   const _addXchain = async () => {
     try {
-      const res = await axios.post(`/api/xchain`, { xchainName, xchainEnName, xchainImage, xchainDetail })
-      navigate('/xchain')
+      if (xchainName.trim() && xchainEnName.trim() && xchainImage.trim() && xchainDetail.trim()) {
+        await axios.post(`/api/xchain`, { xchainName, xchainEnName, xchainImage, xchainDetail })
+        navigate('/xchain')
+      } else {
+        setToasts(toasts.concat({
+          id: 'warning',
+          title: 'Warning',
+          color: 'warning',
+          text: <p>please enter input values</p>,
+        }))
+      }
     } catch (e) {
       console.error(e)
       setToasts(toasts.concat({
@@ -72,7 +80,8 @@ function Creator() {
       <EuiTextArea fullWidth={true} onChange={(e) => {setXchainDetail(e.target.value)}}/>
       <EuiSpacer />
       <div className="creator-footer">
-        <EuiButton fill onClick={_addXchain}>Save</EuiButton>
+        <EuiButton fill onClick={_addXchain}>Save</EuiButton>&emsp;
+        <EuiButton fill color="text" onClick={() => {navigate("/xchain")}}>Cancel</EuiButton>
       </div>
       <EuiGlobalToastList
         toasts={toasts}
