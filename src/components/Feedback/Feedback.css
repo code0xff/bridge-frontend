@@ -1,20 +1,21 @@
-.user-review-component{
+.feedback-component{
     padding: 5%;
 }
 
-.user-review-submit{
+.feedback-submit{
     margin: auto;
     text-align: center;
     padding: 5%;
     
 }
 
-.user-feedback{
+.feedback-text{
     margin-top : 2%;
     margin-bottom: 2%;
 }
 
 .user-rating{
-    margin : 5%;
-    text-align: center;
+    margin-top : 5%;
+    margin-bottom : 5%;
+    
 }
