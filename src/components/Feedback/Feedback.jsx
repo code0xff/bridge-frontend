@@ -21,7 +21,7 @@ function Feedback(){
         <div className="feedback-component">
             <EuiText>
                 <h1>
-                    # User review
+                    # User feedback
                 </h1>
                 {/*<h4>
                     해당 리뷰는 브릿지에 대한 평가에 반영되는 항목입니다. (+공신력, 자료 제공을 위한 유도하는 글)
