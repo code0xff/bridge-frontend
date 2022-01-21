@@ -4,6 +4,8 @@ import { Index } from '../Index'
 import { Evaluation } from '../Evaluation'
 import { Xchain } from '../Xchain'
 import { Viewer } from '../Viewer'
+import { Creator } from '../Creator'
+import { Feedback } from '../Feedback'
 import '@elastic/eui/dist/eui_theme_light.json'
 import { EuiProvider } from '@elastic/eui'
 
@@ -18,9 +20,9 @@ function App() {
             <Route path="evaluation" element={<Evaluation />}>
               <Route path=":name" element={<Evaluation />} />
             </Route>
-            <Route path="viewer" element={<Viewer />}>
-              <Route path=":name" element={<Viewer />} />
-            </Route>
+            <Route path="/viewer/id/:xchainId" element={<Viewer />} />
+            <Route path="creator" element={<Creator />} />
+            <Route path="/feedback/name/:name/id/:id" element={<Feedback />} />
           </Routes>
         </BrowserRouter>
       </div>
