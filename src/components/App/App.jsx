@@ -17,9 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />} exact/>
             <Route path="xchain" element={<Xchain />} />
-            <Route path="evaluation" element={<Evaluation />}>
-              <Route path=":name" element={<Evaluation />} />
-            </Route>
+            <Route path="/evaluation/name/:name" element={<Evaluation />} />
             <Route path="/viewer/id/:xchainId" element={<Viewer />} />
             <Route path="creator" element={<Creator />} />
             <Route path="/feedback/name/:name/id/:id" element={<Feedback />} />
