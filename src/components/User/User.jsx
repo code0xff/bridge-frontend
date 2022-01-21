@@ -1,5 +1,6 @@
 import React from 'react'
 import '@elastic/eui/dist/eui_theme_light.json'
+import { Rating } from 'react-simple-star-rating'
 import { EuiTextArea, EuiPage, EuiSpacer, EuiPanel, EuiText, EuiButton, EuiFieldText } from '@elastic/eui';
 
 import { Score } from '../Score'
@@ -46,7 +47,9 @@ function User(){
 
                     </p>
                 </EuiText>
-                <Score name="fee" value={feeScore} setValue={setFeeScore}/>
+                <div className="user-rating"> 
+                    <Rating showTooltip ratingValue={feeScore} onClick={(feeScore) => {setFeeScore(feeScore)}} size="50px"/>
+                </div>
                 <EuiText className="user-feedback">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
@@ -69,7 +72,9 @@ function User(){
 
                     </p>
                 </EuiText>
-                <Score name="time" value={timeScore} setValue={setTimeScore}/>
+                <div className="user-rating"> 
+                    <Rating showTooltip ratingValue={timeScore} onClick={(timeScore) => {setTimeScore(timeScore)}} size="50px"/>
+                </div>
                 <EuiText className="user-feedback">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
@@ -92,7 +97,9 @@ function User(){
 
                     </p>
                 </EuiText>
-                <Score name="interface" value={interfaceScore} setValue={setInterfaceScore}/>
+                <div className="user-rating"> 
+                    <Rating showTooltip ratingValue={interfaceScore} onClick={(interfaceScore) => {setInterfaceScore(interfaceScore)}} size="50px"/>
+                </div>
                 <EuiText className="user-feedback">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
@@ -108,14 +115,16 @@ function User(){
             <EuiPanel paddingSize="l">
                 <EuiText>
                     <p>
-                        <h3> 04 사용자 지원 </h3>
+                        <h3> 04 사용자 지원(Support) </h3>
                         수수료(Fee)는 브릿지를 사용할 때 추가적으로 지불하게 되는 금액을 말합니다.
                         다음 항목에서는 사용자 경험에 기반해 수수료가 매우 저렴하다(1)부터 매우 비싸다(5)까지 평가할 수 있습니다.  <br /> 
                         ... <br />
 
                     </p>
                 </EuiText>
-                <Score name="support" value={supportScore} setValue={setSupportScore}/>
+                <div className="user-rating"> 
+                    <Rating showTooltip ratingValue={supportScore} onClick={(supportScore) => {setFeeScore(supportScore)}} size="50px"/>
+                </div>
                 <EuiText className="user-feedback">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
