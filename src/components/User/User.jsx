@@ -1,6 +1,6 @@
 import React from 'react'
 import '@elastic/eui/dist/eui_theme_light.json'
-import { EuiTextArea, EuiPage, EuiSpacer, EuiPanel, EuiText, EuiButton } from '@elastic/eui';
+import { EuiTextArea, EuiPage, EuiSpacer, EuiPanel, EuiText, EuiButton, EuiFieldText } from '@elastic/eui';
 
 import { Score } from '../Score'
 
@@ -11,10 +11,17 @@ function User(){
     const [timeScore, setTimeScore] = React.useState(3);
     const [interfaceScore, setInterfaceScore] = React.useState(3);
     const [supportScore, setSupportScore] = React.useState(3);
-    const [text, setText] = React.useState('');
+    
+    const [feeText, setFeeText] = React.useState('');
+    const [timeText, setTimeText] = React.useState('');
+    const [interfaceText, setInterfaceText] = React.useState('');
+    const [supportText, setSupportText] = React.useState('');
+
+    /* function writeText(e) {
+    }
     const writtenText = (e) => {
         setText(e.target.value);
-    };
+    };*/
     
 
     return(
@@ -39,7 +46,16 @@ function User(){
 
                     </p>
                 </EuiText>
-                <Score name="time" value={feeScore} setValue={setFeeScore}/>
+                <Score name="fee" value={feeScore} setValue={setFeeScore}/>
+                <EuiText className="user-feedback">
+                    <p><h4>Additional Feedback</h4></p>
+                </EuiText>
+                <EuiFieldText 
+                    fullWidth={true}
+                    placeholder="한 줄 평을 남겨주세요."
+                    value={feeText}
+                    onChange={(e)=>setFeeText(e.target.value)}
+                />
             </EuiPanel>
             <EuiSpacer size="xxl"/>
 
@@ -54,6 +70,15 @@ function User(){
                     </p>
                 </EuiText>
                 <Score name="time" value={timeScore} setValue={setTimeScore}/>
+                <EuiText className="user-feedback">
+                    <p><h4>Additional Feedback</h4></p>
+                </EuiText>
+                <EuiFieldText
+                    fullWidth={true}
+                    placeholder="한 줄 평을 남겨주세요."
+                    value={timeText}
+                    onChange={(e)=>setTimeText(e.target.value)}
+                />
             </EuiPanel>
             <EuiSpacer size="xxl"/>
 
@@ -68,6 +93,15 @@ function User(){
                     </p>
                 </EuiText>
                 <Score name="interface" value={interfaceScore} setValue={setInterfaceScore}/>
+                <EuiText className="user-feedback">
+                    <p><h4>Additional Feedback</h4></p>
+                </EuiText>
+                <EuiFieldText
+                    fullWidth={true}
+                    placeholder="한 줄 평을 남겨주세요."
+                    value={interfaceText}
+                    onChange={(e)=>setInterfaceText(e.target.value)}
+                />
             </EuiPanel>
             <EuiSpacer size="xxl"/>
 
@@ -82,25 +116,23 @@ function User(){
                     </p>
                 </EuiText>
                 <Score name="support" value={supportScore} setValue={setSupportScore}/>
+                <EuiText className="user-feedback">
+                    <p><h4>Additional Feedback</h4></p>
+                </EuiText>
+                <EuiFieldText
+                    fullWidth={true}
+                    placeholder="한 줄 평을 남겨주세요."
+                    value={supportText}
+                    onChange={(e)=>setSupportText(e.target.value)}
+                />
             </EuiPanel>
             <EuiSpacer size="xxl"/>
 
-            
-            <EuiText>
-                <h3> # Additional feedback   </h3>
-            </EuiText>
-            <EuiTextArea
-                fullWidth={true}
-                placeholder="브릿지에 대한 평가를 자유롭게 남겨주세요."
-                value={text}
-                onChange={(e) => writtenText(e)}
-            />
-            <div className="user-review-submit">
+            <div className="user-review-submit"> 
             <EuiButton
                 color={undefined}
                 size="m"
                 fill
-                onClick={() => {}}
                 >
                 Submit
             </EuiButton>

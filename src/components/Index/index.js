@@ -1,5 +1,5 @@
 import './Index.css'
-import Index from './Index'
+import Index from './Index.jsx'
 
 export {
   Index
