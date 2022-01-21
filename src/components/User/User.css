@@ -1,10 +1,15 @@
 .user-review-component{
-    padding: 3%;
+    padding: 5%;
 }
 
 .user-review-submit{
     margin: auto;
     text-align: center;
-    padding: 3%;
+    padding: 5%;
     
+}
+
+.user-feedback{
+    margin-top : 2%;
+    margin-bottom: 2%;
 }
