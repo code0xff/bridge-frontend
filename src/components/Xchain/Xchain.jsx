@@ -27,7 +27,14 @@ function Xchain() {
   const navigate = useNavigate()
 
   React.useEffect(() => {
-    _loadXchains()
+    axios.get(`/api/xchain`)
+      .then(response => {
+        const xchains = response.data
+        setLoadedXchains(xchains)
+      })
+      .catch(e => {
+        console.error(e)
+      })
   }, [])
 
   const _onClickXchain = (name, id) => {
@@ -40,20 +47,10 @@ function Xchain() {
     setModalVisible(false)
   }
 
-  const _loadXchains = async () => {
-    const response = await axios.get(`/api/xchain`)
-    const xchains = response.data
-
-    if (xchains.length > 0) {
-      setLoadedXchains(...loadedXchains, xchains)
-    }
-  }
-
   const _renderXchains = () => {
     if (!loadedXchains) {
       return
     }
-    console.log(loadedXchains)
     let rowSize = parseInt(loadedXchains.length / 4)
 
     const groupComponents = []
@@ -86,7 +83,7 @@ function Xchain() {
                     src={loadedXchains[j].xchain_image}
                   />
                 }
-                title={loadedXchains[j].xchain_en_name}
+                title={<h3>{loadedXchains[j].xchain_name}<br/>{loadedXchains[j].xchain_en_name}</h3>}
                 description={loadedXchains[j].xchain_detail}
                 onClick={() => {_onClickXchain(loadedXchains[j].xchain_en_name, loadedXchains[j].xchain_id)}}
               />
@@ -132,7 +129,7 @@ function Xchain() {
                       </Link>
                     </EuiFormRow>
                     <EuiFormRow>
-                      <Link to={"/feedback/id/" + selectedXchainId}>
+                      <Link to={`/feedback/name/${selectedName}/id/${selectedXchainId}`}>
                         <EuiButton color='success' size='s'>User Feedback</EuiButton>
                       </Link>
                     </EuiFormRow>

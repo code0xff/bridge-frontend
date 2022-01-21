@@ -22,7 +22,7 @@ function App() {
             </Route>
             <Route path="/viewer/id/:xchainId" element={<Viewer />} />
             <Route path="creator" element={<Creator />} />
-            <Route path="/feedback/id/:xchainId" element={<Feedback />} />
+            <Route path="/feedback/name/:name/id/:id" element={<Feedback />} />
           </Routes>
         </BrowserRouter>
       </div>

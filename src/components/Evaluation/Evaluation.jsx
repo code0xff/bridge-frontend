@@ -1,18 +1,19 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Editor } from '../Editor'
 import '@elastic/eui/dist/eui_theme_light.json'
 import {
   EuiButton,
   EuiAccordion,
   EuiSpacer,
-  EuiTitle,
+  EuiText,
+  EuiPanel,
 } from '@elastic/eui';
 import { useGeneratedHtmlId } from '@elastic/eui'
-import { Score } from '../Score'
+import {Rating} from 'react-simple-star-rating'
 
 function Evaluation() {
-  const params = useParams()
+  const {name} = useParams()
 
   const [decDetail, setDecDetail] = React.useState('# Dectralization\n')
   const [perDetail, setPerDetail] = React.useState('# Performance\n')
@@ -41,73 +42,97 @@ function Evaluation() {
     suffix: 'fourth',
   })
 
+  const navigate = useNavigate()
+
   return (
     <div className="evaluation-component">
-      <div className="evaluation-header">
-        <EuiTitle size="l">
-          <h1>{params.name}</h1>
-        </EuiTitle>
-      </div>
+      <EuiText>
+        <h1>{name}</h1>
+      </EuiText>
+      <EuiSpacer/>
+      <EuiText>
+        <h1># Evaluation</h1>
+      </EuiText>
+      <EuiSpacer/>
+      <EuiPanel paddingSize="l">
+        <EuiAccordion
+          id={multipleAccordionsId__1}
+          arrowDisplay="none"
+          initialIsOpen={true}
+          buttonContent={
+            <EuiText>
+              <h3>01 탈중앙성 (Dectralization)</h3>
+            </EuiText>
+          }
+          paddingSize="l"
+        >
+          <Editor value={decDetail} setValue={setDecDetail}/>
+          <EuiSpacer/>
+          <Rating showTooltip ratingValue={decScore} onClick={(decScore) => {
+            setDecScore(decScore)
+          }} size="40px"/>
+        </EuiAccordion>
+      </EuiPanel>
       <EuiSpacer />
-      <EuiAccordion
-        id={multipleAccordionsId__1}
-        arrowDisplay="none"
-        initialIsOpen={true}
-        buttonContent={
-          <EuiTitle size="m">
-            <h3># Dectralization</h3>
-          </EuiTitle>
-        }
-        paddingSize="l"
-      >
-        <Editor value={decDetail} setValue={setDecDetail}/>
-        <Score name="decentralization" value={decScore} setValue={setDecScore}/>
-      </EuiAccordion>
+      <EuiPanel paddingSize="l">
+        <EuiAccordion
+          id={multipleAccordionsId__2}
+          arrowDisplay="none"
+          buttonContent={
+            <EuiText>
+              <h3>02 성능 (Performance)</h3>
+            </EuiText>
+          }
+          paddingSize="l"
+        >
+          <Editor value={perDetail} setValue={setPerDetail}/>
+          <Rating showTooltip ratingValue={perScore} onClick={(perScore) => {
+            setPerScore(perScore)
+          }} size="40px"/>
+        </EuiAccordion>
+      </EuiPanel>
       <EuiSpacer />
-      <EuiAccordion
-        id={multipleAccordionsId__2}
-        arrowDisplay="none"
-        buttonContent={
-          <EuiTitle size="m">
-            <h3># Performance</h3>
-          </EuiTitle>
-        }
-        paddingSize="l"
-      >
-        <Editor value={perDetail} setValue={setPerDetail}/>
-        <Score name="performance" value={perScore} setValue={setPerScore}/>
-      </EuiAccordion>
+      <EuiPanel paddingSize="l">
+        <EuiAccordion
+          id={multipleAccordionsId__3}
+          arrowDisplay="none"
+          buttonContent={
+            <EuiText>
+              <h3>03 보안 (Security)</h3>
+            </EuiText>
+          }
+          paddingSize="l"
+        >
+          <Editor value={secDetail} setValue={setSecDetail}/>
+          <Rating showTooltip ratingValue={secScore} onClick={(secScore) => {
+            setSecScore(secScore)
+          }} size="40px"/>
+        </EuiAccordion>
+      </EuiPanel>
       <EuiSpacer />
-      <EuiAccordion
-        id={multipleAccordionsId__3}
-        arrowDisplay="none"
-        buttonContent={
-          <EuiTitle size="m">
-            <h3># Security</h3>
-          </EuiTitle>
-        }
-        paddingSize="l"
-      >
-        <Editor value={secDetail} setValue={setSecDetail}/>
-        <Score name="security" value={secScore} setValue={setSecScore}/>
-      </EuiAccordion>
-      <EuiSpacer />
-      <EuiAccordion
-        id={multipleAccordionsId__4}
-        arrowDisplay="none"
-        buttonContent={
-          <EuiTitle size="m">
-            <h3># Scalability</h3>
-          </EuiTitle>
-        }
-        paddingSize="l"
-      >
-        <Editor value={scalDetail} setValue={setScalDetail}/>
-        <Score name="scalability" value={scalScore} setValue={setScalScore}/>
-      </EuiAccordion>
+      <EuiPanel paddingSize="l">
+        <EuiAccordion
+          id={multipleAccordionsId__4}
+          arrowDisplay="none"
+          buttonContent={
+            <EuiText>
+              <h3>04 확장성 (Scalability)</h3>
+            </EuiText>
+          }
+          paddingSize="l"
+        >
+          <Editor value={scalDetail} setValue={setScalDetail}/>
+          <Rating showTooltip ratingValue={scalScore} onClick={(scalScore) => {
+            setScalScore(scalScore)
+          }} size="40px"/>
+        </EuiAccordion>
+      </EuiPanel>
       <EuiSpacer />
       <div className="evaluation-footer">
-        <EuiButton color="primary" fill>Save</EuiButton>
+        <EuiButton color="primary" fill>Submit</EuiButton>&emsp;
+        <EuiButton color="text" fill onClick={() => {
+          navigate("/xchain")
+        }}>Cancel</EuiButton>
       </div>
     </div>
   )

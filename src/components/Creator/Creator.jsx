@@ -1,7 +1,6 @@
 import React from 'react'
 import '@elastic/eui/dist/eui_theme_light.json'
 import {
-  EuiTitle,
   EuiFieldText,
   EuiButton,
   EuiSpacer,
@@ -26,7 +25,8 @@ function Creator() {
   const _addXchain = async () => {
     try {
       if (xchainName.trim() && xchainEnName.trim() && xchainImage.trim() && xchainDetail.trim()) {
-        await axios.post(`/api/xchain`, { xchainName, xchainEnName, xchainImage, xchainDetail })
+        const xchain = { xchainName, xchainEnName, xchainImage, xchainDetail}
+        await axios.post(`/api/xchain`, { xchain })
         navigate('/xchain')
       } else {
         setToasts(toasts.concat({
@@ -49,9 +49,9 @@ function Creator() {
 
   return (
     <div className="creator-component">
-      <EuiTitle>
+      <EuiText>
         <h1># Add New Xchain</h1>
-      </EuiTitle>
+      </EuiText>
       <EuiSpacer />
       <EuiPanel paddingSize="l">
         <EuiText>
@@ -94,7 +94,7 @@ function Creator() {
       </EuiPanel>
       <EuiSpacer />
       <div className="creator-footer">
-        <EuiButton fill onClick={_addXchain}>Save</EuiButton>&emsp;
+        <EuiButton fill onClick={_addXchain}>Submit</EuiButton>&emsp;
         <EuiButton fill color="text" onClick={() => {navigate("/xchain")}}>Cancel</EuiButton>
       </div>
       <EuiGlobalToastList
