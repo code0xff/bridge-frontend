@@ -5,6 +5,7 @@ import { Evaluation } from '../Evaluation'
 import { Xchain } from '../Xchain'
 import { Viewer } from '../Viewer'
 import { Creator } from '../Creator'
+import { User } from '../User'
 import '@elastic/eui/dist/eui_theme_light.json'
 import { EuiProvider } from '@elastic/eui'
 
@@ -24,6 +25,8 @@ function App() {
             </Route>
             <Route path="creator" element={<Creator />}>
               <Route path=":name" element={<Creator />} />
+            </Route>
+            <Route path="user-review" element={<User />}>
             </Route>
           </Routes>
         </BrowserRouter>
