@@ -1,7 +1,21 @@
+.header1 {
+  font-weight: bold;
+  font-size: 56px;
+
+}
+
+.header2 {
+  font-weight: bold;
+  font-size: 24px;
+
+}
+
 .viewer-component {
   padding: 5%;
+
 }
 
 .viewer-header {
   text-align: center;
 }
+
