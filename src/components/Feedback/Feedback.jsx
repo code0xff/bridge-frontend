@@ -1,32 +1,24 @@
 import React from 'react'
 import '@elastic/eui/dist/eui_theme_light.json'
 import { Rating } from 'react-simple-star-rating'
-import { EuiTextArea, EuiPage, EuiSpacer, EuiPanel, EuiText, EuiButton, EuiFieldText } from '@elastic/eui';
-
-import { Score } from '../Score'
+import { EuiSpacer, EuiPanel, EuiText, EuiButton, EuiFieldText } from '@elastic/eui';
 
 
-function User(){
+function Feedback(){
 
-    const [feeScore, setFeeScore] = React.useState(3); // 0 ~ 5
-    const [timeScore, setTimeScore] = React.useState(3);
-    const [interfaceScore, setInterfaceScore] = React.useState(3);
-    const [supportScore, setSupportScore] = React.useState(3);
+    const [feeScore, setFeeScore] = React.useState(0); // 0 ~ 5
+    const [timeScore, setTimeScore] = React.useState(0);
+    const [interfaceScore, setInterfaceScore] = React.useState(0);
+    const [supportScore, setSupportScore] = React.useState(0);
     
     const [feeText, setFeeText] = React.useState('');
     const [timeText, setTimeText] = React.useState('');
     const [interfaceText, setInterfaceText] = React.useState('');
     const [supportText, setSupportText] = React.useState('');
 
-    /* function writeText(e) {
-    }
-    const writtenText = (e) => {
-        setText(e.target.value);
-    };*/
-    
 
     return(
-        <div className="user-review-component">
+        <div className="feedback-component">
             <EuiText>
                 <h1>
                     # User review
@@ -47,10 +39,10 @@ function User(){
 
                     </p>
                 </EuiText>
-                <div className="user-rating"> 
+                <div className="feedback-rating"> 
                     <Rating showTooltip ratingValue={feeScore} onClick={(feeScore) => {setFeeScore(feeScore)}} size="50px"/>
                 </div>
-                <EuiText className="user-feedback">
+                <EuiText className="feedback-text">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
                 <EuiFieldText 
@@ -72,10 +64,10 @@ function User(){
 
                     </p>
                 </EuiText>
-                <div className="user-rating"> 
+                <div className="feedback-rating"> 
                     <Rating showTooltip ratingValue={timeScore} onClick={(timeScore) => {setTimeScore(timeScore)}} size="50px"/>
                 </div>
-                <EuiText className="user-feedback">
+                <EuiText className="feedback-text">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
                 <EuiFieldText
@@ -97,10 +89,10 @@ function User(){
 
                     </p>
                 </EuiText>
-                <div className="user-rating"> 
+                <div className="feedback-rating"> 
                     <Rating showTooltip ratingValue={interfaceScore} onClick={(interfaceScore) => {setInterfaceScore(interfaceScore)}} size="50px"/>
                 </div>
-                <EuiText className="user-feedback">
+                <EuiText className="feedback-text">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
                 <EuiFieldText
@@ -122,10 +114,10 @@ function User(){
 
                     </p>
                 </EuiText>
-                <div className="user-rating"> 
-                    <Rating showTooltip ratingValue={supportScore} onClick={(supportScore) => {setFeeScore(supportScore)}} size="50px"/>
+                <div className="feedback-rating"> 
+                    <Rating showTooltip ratingValue={supportScore} onClick={(supportScore) => {setSupportScore(supportScore)}} size="50px"/>
                 </div>
-                <EuiText className="user-feedback">
+                <EuiText className="feedback-text">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
                 <EuiFieldText
@@ -137,7 +129,7 @@ function User(){
             </EuiPanel>
             <EuiSpacer size="xxl"/>
 
-            <div className="user-review-submit"> 
+            <div className="feedback-submit"> 
             <EuiButton
                 color={undefined}
                 size="m"
@@ -151,5 +143,5 @@ function User(){
     )
 }
 
-export default User
+export default Feedback
 
