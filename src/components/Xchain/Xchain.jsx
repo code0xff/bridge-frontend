@@ -21,6 +21,7 @@ import axios from 'axios'
 function Xchain() {
   const [modalVisible, setModalVisible] = React.useState(false)
   const [selectedName, setSelectedName] = React.useState('')
+  const [selectedXchainId, setSelectedXchainId] = React.useState('')
   const [loadedXchains, setLoadedXchains] = React.useState([])
 
   const navigate = useNavigate()
@@ -29,8 +30,9 @@ function Xchain() {
     _loadXchains()
   }, [])
 
-  const _onClickXchain = (name) => {
+  const _onClickXchain = (name, id) => {
     setSelectedName(name)
+    setSelectedXchainId(id)
     setModalVisible(true)
   }
 
@@ -38,7 +40,7 @@ function Xchain() {
     setModalVisible(false)
   }
 
-  const _loadXchains = async (fromId, toId) => {
+  const _loadXchains = async () => {
     const response = await axios.get(`/api/xchain`)
     const xchains = response.data
 
@@ -86,7 +88,7 @@ function Xchain() {
                 }
                 title={loadedXchains[j].xchain_en_name}
                 description={loadedXchains[j].xchain_detail}
-                onClick={() => {_onClickXchain(loadedXchains[j].xchain_en_name)}}
+                onClick={() => {_onClickXchain(loadedXchains[j].xchain_en_name, loadedXchains[j].xchain_id)}}
               />
             </EuiFlexItem>
           )
@@ -125,12 +127,14 @@ function Xchain() {
                 <div className='xchain-modal-body'>
                   <EuiForm>
                     <EuiFormRow>
-                      <Link to={"/viewer/" + selectedName}>
+                      <Link to={"/viewer/id/" + selectedXchainId}>
                         <EuiButton size='s'>Get Information</EuiButton>
                       </Link>
                     </EuiFormRow>
                     <EuiFormRow>
-                      <EuiButton color='success' size='s'>User Feedback</EuiButton>
+                      <Link to={"/feedback/id/" + selectedXchainId}>
+                        <EuiButton color='success' size='s'>User Feedback</EuiButton>
+                      </Link>
                     </EuiFormRow>
                   </EuiForm>
                   </div>

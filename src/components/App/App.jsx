@@ -20,14 +20,9 @@ function App() {
             <Route path="evaluation" element={<Evaluation />}>
               <Route path=":name" element={<Evaluation />} />
             </Route>
-            <Route path="viewer" element={<Viewer />}>
-              <Route path=":name" element={<Viewer />} />
-            </Route>
-            <Route path="creator" element={<Creator />}>
-              <Route path=":name" element={<Creator />} />
-            </Route>
-            <Route path="feedback" element={<Feedback />}>
-            </Route>
+            <Route path="/viewer/id/:xchainId" element={<Viewer />} />
+            <Route path="creator" element={<Creator />} />
+            <Route path="/feedback/id/:xchainId" element={<Feedback />} />
           </Routes>
         </BrowserRouter>
       </div>

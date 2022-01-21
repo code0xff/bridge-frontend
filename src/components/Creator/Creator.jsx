@@ -8,6 +8,8 @@ import {
   EuiImage,
   EuiTextArea,
   EuiGlobalToastList,
+  EuiPanel,
+  EuiText,
 } from '@elastic/eui'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -48,36 +50,48 @@ function Creator() {
   return (
     <div className="creator-component">
       <EuiTitle>
-        <h4>Xchain Name</h4>
+        <h1># Add New Xchain</h1>
       </EuiTitle>
       <EuiSpacer />
-      <EuiFieldText fullWidth={true} onChange={(e) => {setXchainName(e.target.value)}}/>
+      <EuiPanel paddingSize="l">
+        <EuiText>
+          <h3>01 Xchain Name</h3>
+        </EuiText>
+        <EuiSpacer />
+          <EuiFieldText fullWidth={true} onChange={(e) => {setXchainName(e.target.value)}}/>
+      </EuiPanel>
       <EuiSpacer />
-      <EuiTitle>
-        <h4>Xchain English Name</h4>
-      </EuiTitle>
+      <EuiPanel paddingSize="l">
+        <EuiText>
+          <h3>02 Xchain English Name</h3>
+        </EuiText>
+        <EuiSpacer />
+        <EuiFieldText fullWidth={true} onChange={(e) => {setXchainEnName(e.target.value)}}/>
+      </EuiPanel>
       <EuiSpacer />
-      <EuiFieldText fullWidth={true} onChange={(e) => {setXchainEnName(e.target.value)}}/>
+      <EuiPanel paddingSize="l">
+        <EuiText>
+          <h3>03 Xchain Image Url</h3>
+        </EuiText>
+        <EuiSpacer />
+        <EuiFieldText fullWidth={true} onChange={(e) => {setXchainImage(e.target.value)}}/>
+        <EuiSpacer />
+        <EuiImage
+          hasShadow
+          allowFullScreen
+          size={50}
+          alt="Xchain Icon"
+          src={xchainImage}
+        />
+      </EuiPanel>
       <EuiSpacer />
-      <EuiTitle>
-        <h4>Xchain Image Url</h4>
-      </EuiTitle>
-      <EuiSpacer />
-      <EuiFieldText fullWidth={true} onChange={(e) => {setXchainImage(e.target.value)}}/>
-      <EuiSpacer />
-      <EuiImage
-        hasShadow
-        allowFullScreen
-        size={50}
-        alt="Xchain Icon"
-        src={xchainImage}
-      />
-      <EuiSpacer />
-      <EuiTitle>
-        <h4>Xchain Detail</h4>
-      </EuiTitle>
-      <EuiSpacer />
-      <EuiTextArea fullWidth={true} onChange={(e) => {setXchainDetail(e.target.value)}}/>
+      <EuiPanel paddingSize="l">
+        <EuiText>
+          <h3>04 Xchain Detail</h3>
+        </EuiText>
+        <EuiSpacer />
+        <EuiTextArea fullWidth={true} onChange={(e) => {setXchainDetail(e.target.value)}}/>
+      </EuiPanel>
       <EuiSpacer />
       <div className="creator-footer">
         <EuiButton fill onClick={_addXchain}>Save</EuiButton>&emsp;

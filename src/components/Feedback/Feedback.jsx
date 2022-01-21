@@ -1,31 +1,35 @@
 import React from 'react'
 import '@elastic/eui/dist/eui_theme_light.json'
 import { Rating } from 'react-simple-star-rating'
-import { EuiSpacer, EuiPanel, EuiText, EuiButton, EuiFieldText } from '@elastic/eui';
+import { 
+    EuiSpacer, 
+    EuiPanel, 
+    EuiText, 
+    EuiButton, 
+    EuiFieldText,
+} from '@elastic/eui'
+import { useNavigate, useParams } from 'react-router-dom'
 
+function Feedback() {
+    const params = useParams()
+    const id = params.id
 
-function Feedback(){
+    const [feeScore, setFeeScore] = React.useState(0) // 0 ~ 5
+    const [timeScore, setTimeScore] = React.useState(0)
+    const [interfaceScore, setInterfaceScore] = React.useState(0)
+    const [supportScore, setSupportScore] = React.useState(0)
 
-    const [feeScore, setFeeScore] = React.useState(0); // 0 ~ 5
-    const [timeScore, setTimeScore] = React.useState(0);
-    const [interfaceScore, setInterfaceScore] = React.useState(0);
-    const [supportScore, setSupportScore] = React.useState(0);
-    
-    const [feeText, setFeeText] = React.useState('');
-    const [timeText, setTimeText] = React.useState('');
-    const [interfaceText, setInterfaceText] = React.useState('');
-    const [supportText, setSupportText] = React.useState('');
+    const [feeText, setFeeText] = React.useState('')
+    const [timeText, setTimeText] = React.useState('')
+    const [interfaceText, setInterfaceText] = React.useState('')
+    const [supportText, setSupportText] = React.useState('')
 
+    const navigate = useNavigate()
 
     return(
         <div className="feedback-component">
             <EuiText>
-                <h1>
-                    # User review
-                </h1>
-                {/*<h4>
-                    해당 리뷰는 브릿지에 대한 평가에 반영되는 항목입니다. (+공신력, 자료 제공을 위한 유도하는 글)
-                </h4> */}
+                <h1># User Review</h1>
             </EuiText>
             <EuiSpacer />
 
@@ -39,9 +43,8 @@ function Feedback(){
 
                     </p>
                 </EuiText>
-                <div className="feedback-rating"> 
-                    <Rating showTooltip ratingValue={feeScore} onClick={(feeScore) => {setFeeScore(feeScore)}} size="50px"/>
-                </div>
+                <Rating showTooltip ratingValue={feeScore} onClick={(feeScore) => {setFeeScore(feeScore)}} size="40px"/>
+                <EuiSpacer/>
                 <EuiText className="feedback-text">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
@@ -52,7 +55,7 @@ function Feedback(){
                     onChange={(e)=>setFeeText(e.target.value)}
                 />
             </EuiPanel>
-            <EuiSpacer size="xxl"/>
+            <EuiSpacer/>
 
             <EuiPanel paddingSize="l">
                 <EuiText>
@@ -64,9 +67,8 @@ function Feedback(){
 
                     </p>
                 </EuiText>
-                <div className="feedback-rating"> 
-                    <Rating showTooltip ratingValue={timeScore} onClick={(timeScore) => {setTimeScore(timeScore)}} size="50px"/>
-                </div>
+                <Rating showTooltip ratingValue={timeScore} onClick={(timeScore) => {setTimeScore(timeScore)}} size="40px"/>
+                <EuiSpacer/>
                 <EuiText className="feedback-text">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
@@ -77,7 +79,7 @@ function Feedback(){
                     onChange={(e)=>setTimeText(e.target.value)}
                 />
             </EuiPanel>
-            <EuiSpacer size="xxl"/>
+            <EuiSpacer/>
 
             <EuiPanel paddingSize="l">
                 <EuiText>
@@ -89,9 +91,8 @@ function Feedback(){
 
                     </p>
                 </EuiText>
-                <div className="feedback-rating"> 
-                    <Rating showTooltip ratingValue={interfaceScore} onClick={(interfaceScore) => {setInterfaceScore(interfaceScore)}} size="50px"/>
-                </div>
+                <Rating showTooltip ratingValue={interfaceScore} onClick={(interfaceScore) => {setInterfaceScore(interfaceScore)}} size="40px"/>
+                <EuiSpacer/>
                 <EuiText className="feedback-text">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
@@ -102,7 +103,7 @@ function Feedback(){
                     onChange={(e)=>setInterfaceText(e.target.value)}
                 />
             </EuiPanel>
-            <EuiSpacer size="xxl"/>
+            <EuiSpacer/>
 
             <EuiPanel paddingSize="l">
                 <EuiText>
@@ -114,9 +115,8 @@ function Feedback(){
 
                     </p>
                 </EuiText>
-                <div className="feedback-rating"> 
-                    <Rating showTooltip ratingValue={supportScore} onClick={(supportScore) => {setSupportScore(supportScore)}} size="50px"/>
-                </div>
+                <Rating showTooltip ratingValue={supportScore} onClick={(supportScore) => {setSupportScore(supportScore)}} size="40px"/>
+                <EuiSpacer/>
                 <EuiText className="feedback-text">
                     <p><h4>Additional Feedback</h4></p>
                 </EuiText>
@@ -127,19 +127,12 @@ function Feedback(){
                     onChange={(e)=>setSupportText(e.target.value)}
                 />
             </EuiPanel>
-            <EuiSpacer size="xxl"/>
-
+            <EuiSpacer/>
             <div className="feedback-submit"> 
-            <EuiButton
-                color={undefined}
-                size="m"
-                fill
-                >
-                Submit
-            </EuiButton>
+                <EuiButton fill>Submit</EuiButton>&emsp;
+                <EuiButton color="text" fill onClick={() => {navigate("/xchain")}}>Cancel</EuiButton>
             </div>
-      </div>
-        
+        </div>
     )
 }
 

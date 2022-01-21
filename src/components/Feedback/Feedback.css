@@ -3,19 +3,5 @@
 }
 
 .feedback-submit{
-    margin: auto;
     text-align: center;
-    padding: 5%;
-    
-}
-
-.feedback-text{
-    margin-top : 2%;
-    margin-bottom: 2%;
-}
-
-.user-rating{
-    margin-top : 5%;
-    margin-bottom : 5%;
-    
 }
