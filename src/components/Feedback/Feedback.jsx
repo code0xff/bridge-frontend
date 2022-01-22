@@ -10,7 +10,8 @@ import {
   EuiGlobalToastList,
 } from '@elastic/eui'
 import {useNavigate, useParams} from 'react-router-dom'
-import axios from "axios";
+import axios from "axios"
+import {connectWallet} from "../../utils/wallet"
 
 function Feedback() {
   const {name, id} = useParams()
@@ -55,7 +56,6 @@ function Feedback() {
     }
     axios.post(`/api/feedback`, { feedback })
       .then(response => {
-        console.log(response)
         navigate('/xchain')
       })
       .catch(e => {
@@ -69,7 +69,6 @@ function Feedback() {
       })
   }
 
-
   return (
     <div className="feedback-component">
       <div className="feedback-wallet">
@@ -80,7 +79,7 @@ function Feedback() {
         <EuiButton
           size='s'
           onClick={() => { connectWallet(setUserAddress) }}
-          isDisabled={userAddress}
+          isDisabled={userAddress !== ''}
           fill={!userAddress}
         >
           Connect Wallet
@@ -97,7 +96,7 @@ function Feedback() {
 
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h3>01 수수료 (Fee)</h3>
+          <h2>01 수수료 (Fee)</h2>
           수수료(Fee)는 브리지를 사용할 때 추가적으로 지불하게 되는 금액을 의미합니다.
           다음 항목에서는 사용자 경험에 기반해 수수료가 매우 저렴하다(1)부터 매우 비싸다(5)까지 평가할 수 있습니다. <br/>
           ... <br/>
@@ -120,7 +119,7 @@ function Feedback() {
 
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h3>02 시간 (Time)</h3>
+          <h2>02 시간 (Time)</h2>
           시간(Time)은 브리지를 통해 전송이 완료되는데 필요한 시간을 의미합니다.
           다음 항목에서는 사용자 경험에 기반해 시간이 매우 길다(1)부터 매우 짧다(5)까지 평가할 수 있습니다. <br/>
           ... <br/>
@@ -142,7 +141,7 @@ function Feedback() {
       <EuiSpacer/>
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h3>03 유저 인터페이스 (User Interface)</h3>
+          <h2>03 유저 인터페이스 (User Interface)</h2>
           유저 인터페이스(User Interface)는 브리지가 사용자 친화적으로 설계되었는가를 의미합니다.
           다음 항목에서는 유저 인터페이스가 매우 불편하다(1)부터 매우 편리하다(5)까지 평가할 수 있습니다. <br/>
           ... <br/>
@@ -165,7 +164,7 @@ function Feedback() {
 
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h3>04 사용자 지원 (Support)</h3>
+          <h2>04 사용자 지원 (Support)</h2>
           사용자 지원(Support)은 사용자를 위한 메뉴얼이나 안내 등이 잘 지원되고 있는가를 의미합니다.
           다음 항목에서는 사용자 지원이 매우 미흡하다(1)부터 매우 잘 갖춰져있다(5)까지 평가할 수 있습니다. <br/>
           ... <br/>
@@ -198,16 +197,6 @@ function Feedback() {
       />
     </div>
   )
-}
-
-const connectWallet = async function(setAddress) {
-  const ethereum = window.ethereum;
-  if (ethereum) {
-    const accounts = await ethereum.request({method: 'eth_requestAccounts'})
-    setAddress(accounts[0])
-  } else {
-    console.error('no wallet')
-  }
 }
 
 export default Feedback

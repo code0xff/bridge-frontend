@@ -11,19 +11,73 @@ import {
 } from '@elastic/eui';
 import { useGeneratedHtmlId } from '@elastic/eui'
 import {Rating} from 'react-simple-star-rating'
+import axios from "axios";
 
 function Evaluation() {
-  const {name} = useParams()
+  const {id} = useParams()
 
-  const [decDetail, setDecDetail] = React.useState('# Dectralization\n')
-  const [perDetail, setPerDetail] = React.useState('# Performance\n')
-  const [secDetail, setSecDetail] = React.useState('# Security\n')
-  const [scalDetail, setScalDetail] = React.useState('# Scalability\n')
+  const [xchainName, setXchainName] = React.useState('')
 
-  const [decScore, setDecScore] = React.useState(3)
-  const [perScore, setPerScore] = React.useState(3)
-  const [secScore, setSecScore] = React.useState(3)
-  const [scalScore, setScalScore] = React.useState(3)
+  const [decDetail, setDecDetail] = React.useState('')
+  const [perDetail, setPerDetail] = React.useState('')
+  const [secDetail, setSecDetail] = React.useState('')
+  const [scalDetail, setScalDetail] = React.useState('')
+
+  const [decScore, setDecScore] = React.useState(0)
+  const [perScore, setPerScore] = React.useState(0)
+  const [secScore, setSecScore] = React.useState(0)
+  const [scalScore, setScalScore] = React.useState(0)
+
+  React.useEffect(() => {
+    axios.get(`/api/xchain/id/${id}`)
+      .then(response => {
+        const xchain = response.data
+        setXchainName(xchain.xchain_en_name)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+
+    axios.get(`/api/evaluation/id/${id}`)
+      .then(response => {
+        const evaluation = response.data
+
+        setDecDetail(evaluation.dec_detail)
+        setPerDetail(evaluation.per_detail)
+        setSecDetail(evaluation.sec_detail)
+        setScalDetail(evaluation.scal_detail)
+        setDecScore(evaluation.dec_score)
+        setPerScore(evaluation.per_score)
+        setSecScore(evaluation.sec_score)
+        setScalScore(evaluation.scal_score)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }, [])
+
+  const navigate = useNavigate()
+
+  const _saveEvaluation = () => {
+    const evaluation = {
+      decDetail,
+      perDetail,
+      secDetail,
+      scalDetail,
+      decScore,
+      perScore,
+      secScore,
+      scalScore,
+      xchainId: id,
+    }
+    axios.post(`/api/evaluation`, {evaluation})
+      .then(response => {
+        navigate(`/viewer/id/${id}`)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }
 
   const multipleAccordionsId__1 = useGeneratedHtmlId({
     prefix: 'multipleAccordions',
@@ -42,12 +96,11 @@ function Evaluation() {
     suffix: 'fourth',
   })
 
-  const navigate = useNavigate()
 
   return (
     <div className="evaluation-component">
       <EuiText>
-        <h1>{name}</h1>
+        <h1>{xchainName}</h1>
       </EuiText>
       <EuiSpacer/>
       <EuiText>
@@ -61,7 +114,7 @@ function Evaluation() {
           initialIsOpen={true}
           buttonContent={
             <EuiText>
-              <h3>01 탈중앙성 (Dectralization)</h3>
+              <h2>01 탈중앙성 (Dectralization)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -80,7 +133,7 @@ function Evaluation() {
           arrowDisplay="none"
           buttonContent={
             <EuiText>
-              <h3>02 성능 (Performance)</h3>
+              <h2>02 성능 (Performance)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -98,7 +151,7 @@ function Evaluation() {
           arrowDisplay="none"
           buttonContent={
             <EuiText>
-              <h3>03 보안 (Security)</h3>
+              <h2>03 보안 (Security)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -116,7 +169,7 @@ function Evaluation() {
           arrowDisplay="none"
           buttonContent={
             <EuiText>
-              <h3>04 확장성 (Scalability)</h3>
+              <h2>04 확장성 (Scalability)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -129,9 +182,9 @@ function Evaluation() {
       </EuiPanel>
       <EuiSpacer />
       <div className="evaluation-footer">
-        <EuiButton color="primary" fill>Submit</EuiButton>&emsp;
+        <EuiButton color="primary" fill onClick={() => {_saveEvaluation()}}>Submit</EuiButton>&emsp;
         <EuiButton color="text" fill onClick={() => {
-          navigate("/xchain")
+          navigate(`/viewer/id/${id}`)
         }}>Cancel</EuiButton>
       </div>
     </div>

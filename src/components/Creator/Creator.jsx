@@ -55,7 +55,7 @@ function Creator() {
       <EuiSpacer />
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h3>01 Xchain Name</h3>
+          <h2>01 Xchain Name</h2>
         </EuiText>
         <EuiSpacer />
           <EuiFieldText fullWidth={true} onChange={(e) => {setXchainName(e.target.value)}}/>
@@ -63,7 +63,7 @@ function Creator() {
       <EuiSpacer />
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h3>02 Xchain English Name</h3>
+          <h2>02 Xchain English Name</h2>
         </EuiText>
         <EuiSpacer />
         <EuiFieldText fullWidth={true} onChange={(e) => {setXchainEnName(e.target.value)}}/>
@@ -71,7 +71,7 @@ function Creator() {
       <EuiSpacer />
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h3>03 Xchain Image Url</h3>
+          <h2>03 Xchain Image Url</h2>
         </EuiText>
         <EuiSpacer />
         <EuiFieldText fullWidth={true} onChange={(e) => {setXchainImage(e.target.value)}}/>
@@ -87,7 +87,7 @@ function Creator() {
       <EuiSpacer />
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h3>04 Xchain Detail</h3>
+          <h2>04 Xchain Detail</h2>
         </EuiText>
         <EuiSpacer />
         <EuiTextArea fullWidth={true} onChange={(e) => {setXchainDetail(e.target.value)}}/>
