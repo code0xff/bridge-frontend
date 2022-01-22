@@ -26,9 +26,21 @@ function Feedback() {
   const [supportText, setSupportText] = React.useState('')
   const [toasts, setToasts] = React.useState([])
 
+  const [userAddress, setUserAddress] = React.useState('')
+
   const navigate = useNavigate()
 
   const _addFeedback = () => {
+    if (!userAddress) {
+      setToasts(toasts.concat({
+        id: 'no_wallet_address',
+        title: 'Wallet Not Connected',
+        color: 'danger',
+        text: <p>please connect wallet</p>,
+      }))
+      return
+    }
+
     const feedback = {
       feeScore,
       timeScore,
@@ -39,7 +51,7 @@ function Feedback() {
       uiText,
       supportText,
       xchainId: id,
-      userAddress: ''
+      userAddress
     }
     axios.post(`/api/feedback`, { feedback })
       .then(response => {
@@ -60,12 +72,26 @@ function Feedback() {
 
   return (
     <div className="feedback-component">
+      <div className="feedback-wallet">
+        <EuiText>
+          <h4>{userAddress}</h4>
+        </EuiText>
+        &emsp;
+        <EuiButton
+          size='s'
+          onClick={() => { connectWallet(setUserAddress) }}
+          isDisabled={userAddress}
+          fill={!userAddress}
+        >
+          Connect Wallet
+        </EuiButton>
+      </div>
       <EuiText>
         <h1>{name}</h1>
       </EuiText>
       <EuiSpacer/>
       <EuiText>
-        <h1># Feedback</h1>
+        <h1># User Feedback</h1>
       </EuiText>
       <EuiSpacer/>
 
@@ -172,6 +198,16 @@ function Feedback() {
       />
     </div>
   )
+}
+
+const connectWallet = async function(setAddress) {
+  const ethereum = window.ethereum;
+  if (ethereum) {
+    const accounts = await ethereum.request({method: 'eth_requestAccounts'})
+    setAddress(accounts[0])
+  } else {
+    console.error('no wallet')
+  }
 }
 
 export default Feedback
