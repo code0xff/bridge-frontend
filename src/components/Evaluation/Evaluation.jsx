@@ -16,95 +16,73 @@ import {
 } from '@elastic/eui';
 import { useGeneratedHtmlId } from '@elastic/eui'
 import {Rating} from 'react-simple-star-rating'
+import axios from "axios";
 
 function Evaluation() {
-  const {name} = useParams()
-  const [isFixed, setIsFixed] = React.useState(false);
+  const {id} = useParams()
 
-  const breadcrumbs = [
-    {
-      text: 'Bridge',
-      href: '#',
-      onClick: (e) => {
-        e.preventDefault();
-      },
-    },
-    {
-      text: 'Multichain',
-      href: '#',
-      onClick: (e) => {
-        e.preventDefault();
-      },
-    },
-    {
-      text: 'Evaluation',
-    },
-  ];
+  const [xchainName, setXchainName] = React.useState('')
+
+  const [decDetail, setDecDetail] = React.useState('')
+  const [perDetail, setPerDetail] = React.useState('')
+  const [secDetail, setSecDetail] = React.useState('')
+  const [scalDetail, setScalDetail] = React.useState('')
+
+  const [decScore, setDecScore] = React.useState(0)
+  const [perScore, setPerScore] = React.useState(0)
+  const [secScore, setSecScore] = React.useState(0)
+  const [scalScore, setScalScore] = React.useState(0)
 
   React.useEffect(() => {
-    if (isFixed) document.body.classList.add('euiBody--headerIsFixed--double');
+    axios.get(`/api/xchain/id/${id}`)
+      .then(response => {
+        const xchain = response.data
+        setXchainName(xchain.xchain_en_name)
+      })
+      .catch(e => {
+        console.log(e)
+      })
 
-    return () => {
-      document.body.classList.remove('euiBody--headerIsFixed--double');
-    };
-  }, [isFixed]);
+    axios.get(`/api/evaluation/id/${id}`)
+      .then(response => {
+        const evaluation = response.data
 
-  const headers = (
-    <>
-      <EuiHeader
-        theme="dark"
-        position={isFixed ? 'fixed' : 'static'}
-        sections={[
-          {
-            items: [
-              <EuiHeaderLogo iconType="logoElastic">Bridge Evaluation Platform</EuiHeaderLogo>,
-            ],
-            borders: 'none',
-          },
-          {
-            items: [
-              <EuiHeaderSectionItemButton aria-label="Account menu">
-                <EuiAvatar name="John Username" size="s" />
-              </EuiHeaderSectionItemButton>,
-            ],
-            borders: 'none',
-          },
-        ]}
-      />
-      <EuiHeader
-        position={isFixed ? 'fixed' : 'static'}
-        sections={[
-          {
-            items: [
-            ],
-            breadcrumbs: breadcrumbs,
-            borders: 'right',
-          },
-          {
-            items: [
-              <EuiHeaderSectionItemButton
-                aria-label="News feed: Updates available"
-                notification={true}
-              >
-                <EuiIcon type="cheer" size="m" />
-              </EuiHeaderSectionItemButton>,
-            ],
-            borders: 'none',
-          },
-        ]}
-      />
-    </>
-  );
-  
-  const [decDetail, setDecDetail] = React.useState('# Dectralization\n')
-  const [perDetail, setPerDetail] = React.useState('# Performance\n')
-  const [secDetail, setSecDetail] = React.useState('# Security\n')
-  const [scalDetail, setScalDetail] = React.useState('# Scalability\n')
+        setDecDetail(evaluation.dec_detail)
+        setPerDetail(evaluation.per_detail)
+        setSecDetail(evaluation.sec_detail)
+        setScalDetail(evaluation.scal_detail)
+        setDecScore(evaluation.dec_score)
+        setPerScore(evaluation.per_score)
+        setSecScore(evaluation.sec_score)
+        setScalScore(evaluation.scal_score)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }, [])
 
-  const [decScore, setDecScore] = React.useState(3)
-  const [perScore, setPerScore] = React.useState(3)
-  const [secScore, setSecScore] = React.useState(3)
-  const [scalScore, setScalScore] = React.useState(3)
+  const navigate = useNavigate()
+
+  const _saveEvaluation = () => {
+    const evaluation = {
+      decDetail,
+      perDetail,
+      secDetail,
+      scalDetail,
+      decScore,
+      perScore,
+      secScore,
+      scalScore,
+      xchainId: id,
+    }
+    axios.post(`/api/evaluation`, {evaluation})
+      .then(response => {
+        navigate(`/viewer/id/${id}`)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }
 
   const multipleAccordionsId__1 = useGeneratedHtmlId({
     prefix: 'multipleAccordions',
@@ -123,14 +101,11 @@ function Evaluation() {
     suffix: 'fourth',
   })
 
-  const navigate = useNavigate()
 
   return (
     <div className="evaluation-component">
-      <EuiSpacer />
-      {headers}
       <EuiText>
-        <h1>{name}</h1>
+        <h1>{xchainName}</h1>
       </EuiText>
       <EuiSpacer/>
       <EuiText>
@@ -144,7 +119,7 @@ function Evaluation() {
           initialIsOpen={true}
           buttonContent={
             <EuiText>
-              <h3>01 탈중앙성 (Dectralization)</h3>
+              <h2>01 탈중앙성 (Dectralization)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -163,7 +138,7 @@ function Evaluation() {
           arrowDisplay="none"
           buttonContent={
             <EuiText>
-              <h3>02 성능 (Performance)</h3>
+              <h2>02 성능 (Performance)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -181,7 +156,7 @@ function Evaluation() {
           arrowDisplay="none"
           buttonContent={
             <EuiText>
-              <h3>03 보안 (Security)</h3>
+              <h2>03 보안 (Security)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -199,7 +174,7 @@ function Evaluation() {
           arrowDisplay="none"
           buttonContent={
             <EuiText>
-              <h3>04 확장성 (Scalability)</h3>
+              <h2>04 확장성 (Scalability)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -212,9 +187,9 @@ function Evaluation() {
       </EuiPanel>
       <EuiSpacer />
       <div className="evaluation-footer">
-        <EuiButton color="primary" fill>Submit</EuiButton>&emsp;
+        <EuiButton color="primary" fill onClick={() => {_saveEvaluation()}}>Submit</EuiButton>&emsp;
         <EuiButton color="text" fill onClick={() => {
-          navigate("/xchain")
+          navigate(`/viewer/id/${id}`)
         }}>Cancel</EuiButton>
       </div>
     </div>

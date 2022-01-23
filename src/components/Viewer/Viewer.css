@@ -15,7 +15,13 @@
 
 }
 
-.viewer-header {
-  text-align: center;
+.viewer-wallet {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
 }
 
+.viewer-edit {
+  text-align: center;
+}

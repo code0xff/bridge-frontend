@@ -5,7 +5,7 @@
 .feedback-wallet {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   text-align: right;
 }
 
