@@ -11,8 +11,11 @@ import {
 } from '@elastic/eui'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import {connectWallet} from "../../utils/wallet";
 
 function Creator() {
+  const [userAddress, setUserAddress] = React.useState('')
+
   const [xchainName, setXchainName] = React.useState('')
   const [xchainEnName, setXchainEnName] = React.useState('')
   const [xchainImage, setXchainImage] = React.useState('')
@@ -23,6 +26,16 @@ function Creator() {
 
   const _addXchain = async () => {
     try {
+      if (!userAddress) {
+        setToasts(toasts.concat({
+          id: 'no_wallet_address',
+          title: 'Wallet Not Connected',
+          color: 'danger',
+          text: <p>please connect wallet</p>,
+        }))
+        return
+      }
+
       if (xchainName.trim() && xchainEnName.trim() && xchainImage.trim() && xchainDetail.trim()) {
         const xchain = { xchainName, xchainEnName, xchainImage, xchainDetail}
         await axios.post(`/api/xchain`, { xchain })
@@ -48,6 +61,20 @@ function Creator() {
 
   return (
     <div className="creator-component">
+      <div className="creator-wallet">
+        <EuiText>
+          <h4>{userAddress}</h4>
+        </EuiText>
+        &emsp;
+        <EuiButton
+          size='s'
+          onClick={() => { connectWallet(setUserAddress) }}
+          isDisabled={userAddress !== ''}
+          fill={!userAddress}
+        >
+          Connect Wallet
+        </EuiButton>
+      </div>
       <EuiText>
         <h1># Add New Xchain</h1>
       </EuiText>

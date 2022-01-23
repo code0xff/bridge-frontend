@@ -2,6 +2,13 @@
   padding: 5%;
 }
 
+.creator-wallet {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+}
+
 .creator-footer {
   text-align: center;
 }

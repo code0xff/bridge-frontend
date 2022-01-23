@@ -1,17 +1,14 @@
 import React from 'react'
 import {
-  EuiAccordion,
   EuiButton,
-  EuiMarkdownFormat,
-  EuiPanel,
   EuiSpacer,
   EuiText,
-  useGeneratedHtmlId,
 } from '@elastic/eui'
 import {Link, useParams} from 'react-router-dom'
 import axios from "axios"
-import {Rating} from "react-simple-star-rating"
 import {connectWallet} from "../../utils/wallet"
+import {EvaluationViewer} from "../EvaluationViewer"
+import {FeedbackViewer} from "../FeedbackViewer"
 
 function Viewer() {
   const {id} = useParams()
@@ -29,6 +26,19 @@ function Viewer() {
   const [perScore, setPerScore] = React.useState(0)
   const [secScore, setSecScore] = React.useState(0)
   const [scalScore, setScalScore] = React.useState(0)
+
+  const [feeAverage, setFeeAverage] = React.useState(0)
+  const [timeAverage, setTimeAverage] = React.useState(0)
+  const [uiAverage, setUiAverage] = React.useState(0)
+  const [supportAverage, setSupportAverage] = React.useState(0)
+  const [feedbackDetail, setFeedbackDetail] = React.useState({
+    user_address: '',
+    fee_detail: '등록된 리뷰가 존재하지 않습니다.',
+    time_detail: '등록된 리뷰가 존재하지 않습니다.',
+    ui_detail: '등록된 리뷰가 존재하지 않습니다.',
+    support_detail: '등록된 리뷰가 존재하지 않습니다.',
+    created_at: '',
+  })
 
   React.useEffect(() => {
     axios.get(`/api/xchain/id/${id}`)
@@ -56,24 +66,29 @@ function Viewer() {
       .catch(e => {
         console.log(e)
       })
-  }, [])
 
-  const multipleAccordionsId__1 = useGeneratedHtmlId({
-    prefix: 'multipleAccordions',
-    suffix: 'first',
-  })
-  const multipleAccordionsId__2 = useGeneratedHtmlId({
-    prefix: 'multipleAccordions',
-    suffix: 'second',
-  })
-  const multipleAccordionsId__3 = useGeneratedHtmlId({
-    prefix: 'multipleAccordions',
-    suffix: 'third',
-  })
-  const multipleAccordionsId__4 = useGeneratedHtmlId({
-    prefix: 'multipleAccordions',
-    suffix: 'fourth',
-  })
+    axios.get(`/api/feedback/id/${id}`)
+      .then(response => {
+        const {
+          feeAverage,
+          timeAverage,
+          uiAverage,
+          supportAverage,
+          feedbackDetail,
+        } = response.data
+
+        setFeeAverage(feeAverage)
+        setTimeAverage(timeAverage)
+        setUiAverage(uiAverage)
+        setSupportAverage(supportAverage)
+        if (feedbackDetail) {
+          setFeedbackDetail(feedbackDetail)
+        }
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }, [])
 
   return (
     <div className='viewer-component'>
@@ -95,103 +110,28 @@ function Viewer() {
         <h1>{xchainName}</h1>
       </EuiText>
       <EuiSpacer/>
-      <EuiText>
-        <h1># Evaluation</h1>
-      </EuiText>
+      <EvaluationViewer
+        decScore={decScore}
+        decDetail={decDetail}
+        perScore={perScore}
+        perDetail={perDetail}
+        secScore={secScore}
+        secDetail={secDetail}
+        scalScore={scalScore}
+        scalDetail={scalDetail}
+        userAddress={userAddress}
+        id={id}
+      />
       <EuiSpacer/>
-      <EuiPanel paddingSize='l'>
-        <EuiAccordion
-          id={multipleAccordionsId__1}
-          arrowDisplay='none'
-          initialIsOpen={true}
-          buttonContent={
-            <EuiText>
-              <h2>
-                01 탈중앙성 (Dectralization)
-                <Rating ratingValue={decScore} readonly={true} size="40px"/>
-              </h2>
-            </EuiText>
-          }
-          paddingSize='l'
-        >
-          <EuiMarkdownFormat>
-            {decDetail}
-          </EuiMarkdownFormat>
-        </EuiAccordion>
-      </EuiPanel>
-      <EuiSpacer/>
-      <EuiPanel paddingSize='l'>
-        <EuiAccordion
-          id={multipleAccordionsId__2}
-          arrowDisplay='none'
-          initialIsOpen={true}
-          buttonContent={
-            <EuiText>
-              <h2>
-                02 성능 (Performance)
-                <Rating ratingValue={perScore} readonly={true} size="40px"/>
-              </h2>
-            </EuiText>
-          }
-          paddingSize='l'
-        >
-          <EuiMarkdownFormat>
-            {perDetail}
-          </EuiMarkdownFormat>
-        </EuiAccordion>
-      </EuiPanel>
-      <EuiSpacer/>
-      <EuiPanel paddingSize='l'>
-        <EuiAccordion
-          id={multipleAccordionsId__3}
-          arrowDisplay='none'
-          initialIsOpen={true}
-          buttonContent={
-            <EuiText>
-              <h2>
-                03 보안 (Security)
-                <Rating ratingValue={secScore} readonly={true} size="40px"/>
-              </h2>
-            </EuiText>
-          }
-          paddingSize='l'
-        >
-          <EuiMarkdownFormat>
-            {secDetail}
-          </EuiMarkdownFormat>
-        </EuiAccordion>
-      </EuiPanel>
-      <EuiSpacer/>
-      <EuiPanel paddingSize='l'>
-        <EuiAccordion
-          id={multipleAccordionsId__4}
-          arrowDisplay='none'
-          initialIsOpen={true}
-          buttonContent={
-            <EuiText>
-              <h2>
-                04 확장성 (Scalability)
-                <Rating ratingValue={scalScore} readonly={true} size="40px"/>
-              </h2>
-            </EuiText>
-          }
-          paddingSize='l'
-        >
-          <EuiMarkdownFormat>
-            {scalDetail}
-          </EuiMarkdownFormat>
-        </EuiAccordion>
-      </EuiPanel>
+      <FeedbackViewer
+        feeAverage={feeAverage}
+        timeAverage={timeAverage}
+        uiAverage={uiAverage}
+        supportAverage={supportAverage}
+        feedbackDetail={feedbackDetail}
+      />
       <EuiSpacer/>
       <div className="viewer-edit">
-        {
-          userAddress ?
-          <Link to={`/evaluation/id/${id}`}>
-            <EuiButton fill>Edit</EuiButton>
-          </Link>
-          : null
-        }
-        &emsp;
         <Link to={`/xchain`}>
           <EuiButton color="text" fill>To Xchain</EuiButton>
         </Link>
