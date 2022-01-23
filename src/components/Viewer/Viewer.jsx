@@ -1,5 +1,4 @@
-import React from 'react'
-import StarRatings from 'react-star-ratings';
+import React, { Fragment } from 'react'
 import {
   EuiAccordion,
   EuiButton,
@@ -8,6 +7,14 @@ import {
   EuiSpacer,
   EuiText,
   useGeneratedHtmlId,
+  EuiModal,
+  EuiModalBody,
+  EuiModalHeader,
+  EuiModalFooter,
+  EuiProgress,
+  EuiComment,
+  EuiFlexGroup,
+  EuiFlexItem
 } from '@elastic/eui'
 import {Link, useParams} from 'react-router-dom'
 import axios from "axios"
@@ -30,6 +37,80 @@ function Viewer() {
   const [perScore, setPerScore] = React.useState(0)
   const [secScore, setSecScore] = React.useState(0)
   const [scalScore, setScalScore] = React.useState(0)
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  
+  const tempValue = 3.4
+  const tempCount = 4033
+  const tempBestComment = `This bridge is the best !! :smile:! 
+
+- [x] Trustless 
+- [x] Fast
+
+Also smooth, with *great* UX/UI!
+`;
+  
+  const tempWorstComment = `This bridge is scam !! :cry:! 
+Never send any of your asset through this bridge.
+
+**SCAM ALERT**
+`;
+  const tempData = [
+    { label: '★★★★★', value: '60' },
+    { label: '★★★★', value: '20' },
+    { label: '★★★', value: '10' },
+    { label: '★★', value: '7' },
+    { label: '★', value: '3' },
+  ];
+  const tempBestCommentData = [
+    {address : "0x1C58****" , comment: tempBestComment 
+    }
+  ];
+  const tempWorstCommentData = [
+    {address : "0x6E13****" , comment: tempWorstComment
+    }
+  ];
+
+  const closeModal = () => setIsModalVisible(false);
+  const showModal = () => setIsModalVisible(true);
+  let modal;
+
+  if (isModalVisible) {
+    modal = (
+      <EuiModal onClose={closeModal}>
+        <EuiModalHeader>
+	  <EuiText>
+	    <h3>
+	      <Rating ratingValue={scalScore} readonly={true} size="40px" initialValue={tempValue}/>
+	      {tempCount}
+	    </h3>
+	  </EuiText>
+        </EuiModalHeader>
+
+        <EuiModalBody>
+	  <div style={{ maxWidth: 250 }}>
+      {tempData.map((item) => (
+        <Fragment key={item.value}>
+          <EuiProgress
+            valueText={true}
+            max={100}
+            color="primary"
+            size="m"
+            {...item}
+          />
+          <EuiSpacer size="s" />
+        </Fragment>
+      ))}
+    </div>
+        </EuiModalBody>
+
+        <EuiModalFooter>
+          <EuiButton onClick={closeModal} fill>
+            Close
+          </EuiButton>
+        </EuiModalFooter>
+      </EuiModal>
+    );
+  }
 
   React.useEffect(() => {
     axios.get(`/api/xchain/id/${id}`)
@@ -181,9 +262,95 @@ function Viewer() {
           <EuiMarkdownFormat>
             {scalDetail}
           </EuiMarkdownFormat>
+      <EuiSpacer/>
         </EuiAccordion>
       </EuiPanel>
       <EuiSpacer/>
+      <EuiText>
+        <h1># User Feedback</h1>
+      </EuiText>
+      <EuiSpacer/>
+      <EuiPanel paddingSize='l'>
+        <EuiAccordion
+          id={multipleAccordionsId__3}
+          arrowDisplay='none'
+          initialIsOpen={true}
+          buttonContent={
+            <EuiText>
+              <h2>
+                탈중앙성 (Decentralization)
+              </h2>
+	    </EuiText>
+          }
+          paddingSize='l'
+        >
+	  
+	  <EuiText>
+	    <h3>
+	      <Rating ratingValue={scalScore} readonly={true} size="40px" initialValue={tempValue}/>
+	      {tempCount}
+	      <EuiButton onClick={showModal} fill>
+	        자세히 보기
+	      </EuiButton>
+	      {modal}
+	    </h3>
+	  </EuiText>
+	  <EuiSpacer/>
+          
+	  <EuiAccordion
+	  id={multipleAccordionsId__3}
+	  arrowDisplay='left'
+	  initialIsOpen={false}
+	  buttonContent={
+	    <EuiText>
+	      <h4>
+	        Click here to see other reviews..
+	      </h4>
+	    </EuiText>
+	  } >
+
+	  <EuiSpacer/>
+	  <EuiFlexGroup>
+    	  <EuiFlexItem>
+	    <h2> Best Reviews </h2>
+	  <EuiSpacer/>
+	  <div>
+    	    <EuiComment
+	      username={tempBestCommentData[0]["address"]}
+     	      event="added a comment"
+      	      timestamp="on Jan 1, 2020"
+	    >
+	    <EuiMarkdownFormat>
+	      {tempBestCommentData[0]["comment"]}
+	    </EuiMarkdownFormat>
+	    </EuiComment>
+	  </div>
+	  </EuiFlexItem>
+    	  
+	  <EuiFlexItem>
+	    <h2> Worst Reviews </h2>
+	  <EuiSpacer/>
+	  <div>
+    	    <EuiComment
+	      username={tempWorstCommentData[0]["address"]}
+     	      event="added a comment"
+      	      timestamp="on Jan 1, 2020"
+	    >
+	    <EuiMarkdownFormat>
+	      {tempWorstCommentData[0]["comment"]}
+	    </EuiMarkdownFormat>
+	    </EuiComment>
+	  </div>
+    	  </EuiFlexItem>
+  	  </EuiFlexGroup>
+	  
+	  </EuiAccordion>
+	     
+      <EuiSpacer/>
+      </EuiAccordion>
+
+      </EuiPanel>
+	
       <div className="viewer-edit">
         <Link to={`/evaluation/id/${id}`}>
           <EuiButton fill>Edit</EuiButton>
