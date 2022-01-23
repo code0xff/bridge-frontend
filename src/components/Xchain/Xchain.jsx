@@ -20,8 +20,7 @@ import axios from 'axios'
 
 function Xchain() {
   const [modalVisible, setModalVisible] = React.useState(false)
-  const [selectedName, setSelectedName] = React.useState('')
-  const [selectedXchainId, setSelectedXchainId] = React.useState('')
+  const [selectedXchain, setSelectedXchain] = React.useState(null)
   const [loadedXchains, setLoadedXchains] = React.useState([])
 
   const navigate = useNavigate()
@@ -37,9 +36,8 @@ function Xchain() {
       })
   }, [])
 
-  const _onClickXchain = (name, id) => {
-    setSelectedName(name)
-    setSelectedXchainId(id)
+  const _onClickXchain = (xchain) => {
+    setSelectedXchain(xchain)
     setModalVisible(true)
   }
 
@@ -85,7 +83,7 @@ function Xchain() {
                 }
                 title={<h3>{loadedXchains[j].xchain_name}<br/>{loadedXchains[j].xchain_en_name}</h3>}
                 description={loadedXchains[j].xchain_detail}
-                onClick={() => {_onClickXchain(loadedXchains[j].xchain_en_name, loadedXchains[j].xchain_id)}}
+                onClick={() => {_onClickXchain(loadedXchains[j])}}
               />
             </EuiFlexItem>
           )
@@ -118,18 +116,18 @@ function Xchain() {
           <EuiOverlayMask>
             <EuiModal onClose={_closeModal} initialFocus="[name=popswitch]">
               <EuiModalHeader>
-                <EuiModalHeaderTitle>{selectedName}</EuiModalHeaderTitle>
+                <EuiModalHeaderTitle>{`${selectedXchain.xchain_name} (${selectedXchain.xchain_en_name})`}</EuiModalHeaderTitle>
               </EuiModalHeader>
               <EuiModalBody>
                 <div className='xchain-modal-body'>
                   <EuiForm>
                     <EuiFormRow>
-                      <Link to={"/viewer/id/" + selectedXchainId}>
+                      <Link to={`/viewer/id/${selectedXchain.xchain_id}`}>
                         <EuiButton size='s'>Get Information</EuiButton>
                       </Link>
                     </EuiFormRow>
                     <EuiFormRow>
-                      <Link to={`/feedback/name/${selectedName}/id/${selectedXchainId}`}>
+                      <Link to={`/feedback/name/${selectedXchain.xchain_en_name}/id/${selectedXchain.xchain_id}`}>
                         <EuiButton color='success' size='s'>User Feedback</EuiButton>
                       </Link>
                     </EuiFormRow>

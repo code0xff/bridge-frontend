@@ -184,12 +184,16 @@ function Viewer() {
       </EuiPanel>
       <EuiSpacer/>
       <div className="viewer-edit">
-        <Link to={`/evaluation/id/${id}`}>
-          <EuiButton fill>Edit</EuiButton>
-        </Link>
+        {
+          userAddress ?
+          <Link to={`/evaluation/id/${id}`}>
+            <EuiButton fill>Edit</EuiButton>
+          </Link>
+          : null
+        }
         &emsp;
         <Link to={`/xchain`}>
-          <EuiButton color="text" fill>Cancel</EuiButton>
+          <EuiButton color="text" fill>To Xchain</EuiButton>
         </Link>
       </div>
     </div>
