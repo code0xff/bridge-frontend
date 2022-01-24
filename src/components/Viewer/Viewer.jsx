@@ -3,6 +3,7 @@ import {
   EuiButton,
   EuiSpacer,
   EuiText,
+  useGeneratedHtmlId,
 } from '@elastic/eui'
 import {Link, useParams} from 'react-router-dom'
 import axios from "axios"
@@ -90,6 +91,16 @@ function Viewer() {
       })
   }, [])
 
+  const multipleAccordionsId__1 = useGeneratedHtmlId({
+    prefix: 'multipleAccordions',
+    suffix: 'first',
+  })
+  const multipleAccordionsId__2 = useGeneratedHtmlId({
+    prefix: 'multipleAccordions',
+    suffix: 'second',
+  })
+
+
   return (
     <div className='viewer-component'>
       <div className="viewer-wallet">
@@ -111,6 +122,7 @@ function Viewer() {
       </EuiText>
       <EuiSpacer/>
       <EvaluationViewer
+        accordionId={multipleAccordionsId__1}
         decScore={decScore}
         decDetail={decDetail}
         perScore={perScore}
@@ -124,6 +136,7 @@ function Viewer() {
       />
       <EuiSpacer/>
       <FeedbackViewer
+        accordionId={multipleAccordionsId__2}
         feeAverage={feeAverage}
         timeAverage={timeAverage}
         uiAverage={uiAverage}

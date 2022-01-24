@@ -10,7 +10,6 @@ import {Rating} from "react-simple-star-rating"
 
 function FeedbackViewerPart(props) {
   const {
-    accordionId,
     title,
     average,
     address,
@@ -20,33 +19,22 @@ function FeedbackViewerPart(props) {
 
   return (
     <div className='feedback-viewer-part-component'>
-      <EuiPanel paddingSize='l'>
-        <EuiAccordion
-          id={accordionId}
-          arrowDisplay='none'
-          initialIsOpen={true}
-          buttonContent={
-            <EuiText>
-              <h2>
-                {title}
-              </h2>
-            </EuiText>
-          }
-          paddingSize='l'
-        >
-          <Rating showTooltip ratingValue={average} readonly={true} size="40px" allowHalfIcon/>
-          <EuiSpacer/>
-            <EuiComment
-              username={address ? address : 'Unknown'}
-              event="added a comment"
-              timestamp={createdAt}
-            >
-              <EuiText>
-                <p>{detail ? detail : ''}</p>
-              </EuiText>
-            </EuiComment>
-        </EuiAccordion>
-      </EuiPanel>
+      <EuiText>
+        <h2>
+          {title}
+        </h2>
+      </EuiText>
+      <Rating showTooltip ratingValue={average} readonly={true} size="40px" allowHalfIcon/>
+      <EuiSpacer/>
+      <EuiComment
+        username={address ? address : 'Unknown'}
+        event="added a comment"
+        timestamp={createdAt}
+      >
+        <EuiText>
+          <p>{detail ? detail : ''}</p>
+        </EuiText>
+      </EuiComment>
     </div>
   )
 }
