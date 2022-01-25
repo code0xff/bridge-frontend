@@ -10,6 +10,7 @@ import {FeedbackViewerPart} from "../FeedbackViewerPart"
 
 function FeedbackViewer(props) {
   const {
+    id,
     accordionId,
     feeAverage,
     timeAverage,
@@ -38,6 +39,9 @@ function FeedbackViewer(props) {
             address={feedbackDetail.user_address}
             createdAt={feedbackDetail.created_at}
             detail={feedbackDetail.fee_detail}
+            score={feedbackDetail.fee_score}
+            id={id}
+            type='fee'
           />
           <EuiHorizontalRule/>
           <FeedbackViewerPart
@@ -46,6 +50,9 @@ function FeedbackViewer(props) {
             address={feedbackDetail.user_address}
             createdAt={feedbackDetail.created_at}
             detail={feedbackDetail.time_detail}
+            score={feedbackDetail.time_score}
+            id={id}
+            type='time'
           />
           <EuiHorizontalRule/>
           <FeedbackViewerPart
@@ -54,6 +61,9 @@ function FeedbackViewer(props) {
             address={feedbackDetail.user_address}
             createdAt={feedbackDetail.created_at}
             detail={feedbackDetail.ui_detail}
+            score={feedbackDetail.ui_score}
+            id={id}
+            type='ui'
           />
           <EuiHorizontalRule/>
           <FeedbackViewerPart
@@ -62,6 +72,9 @@ function FeedbackViewer(props) {
             address={feedbackDetail.user_address}
             createdAt={feedbackDetail.created_at}
             detail={feedbackDetail.support_detail}
+            score={feedbackDetail.support_score}
+            id={id}
+            type='support'
           />
         </EuiAccordion>
       </EuiPanel>

@@ -1,19 +1,23 @@
 import React from 'react'
 import {
-  EuiAccordion,
-  EuiPanel,
   EuiSpacer,
   EuiText,
-  EuiComment
+  EuiComment,
+  EuiButtonEmpty,
 } from '@elastic/eui'
-import {Rating} from "react-simple-star-rating"
+import {Rating} from 'react-simple-star-rating'
+import {Link} from 'react-router-dom'
+import {FeedbackDetailViewerPart} from "../FeedbackDetailViewerPart"
 
 function FeedbackViewerPart(props) {
   const {
+    id,
+    type,
     title,
     average,
     address,
     createdAt,
+    score,
     detail,
   } = props
 
@@ -24,17 +28,22 @@ function FeedbackViewerPart(props) {
           {title}
         </h2>
       </EuiText>
-      <Rating showTooltip ratingValue={average} readonly={true} size="40px" allowHalfIcon/>
+      <Rating showTooltip ratingValue={average} readonly={true} size='40px' allowHalfIcon/>
       <EuiSpacer/>
       <EuiComment
         username={address ? address : 'Unknown'}
-        event="added a comment"
+        event='added a comment'
         timestamp={createdAt}
       >
         <EuiText>
           <p>{detail ? detail : ''}</p>
         </EuiText>
       </EuiComment>
+      <Link to={`/feedback/detail/id/${id}/type/${type}`}>
+        <EuiButtonEmpty>
+          view more feedbacks ...
+        </EuiButtonEmpty>
+      </Link>
     </div>
   )
 }

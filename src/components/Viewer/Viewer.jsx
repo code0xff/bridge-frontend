@@ -136,6 +136,7 @@ function Viewer() {
       />
       <EuiSpacer/>
       <FeedbackViewer
+        id={id}
         accordionId={multipleAccordionsId__2}
         feeAverage={feeAverage}
         timeAverage={timeAverage}
@@ -144,7 +145,7 @@ function Viewer() {
         feedbackDetail={feedbackDetail}
       />
       <EuiSpacer/>
-      <div className="viewer-edit">
+      <div className="viewer-to-xchain">
         <Link to={`/xchain`}>
           <EuiButton color="text" fill>To Xchain</EuiButton>
         </Link>
