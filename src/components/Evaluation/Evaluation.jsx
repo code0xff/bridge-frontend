@@ -8,10 +8,12 @@ import {
   EuiSpacer,
   EuiText,
   EuiPanel,
+  EuiGlobalToastList,
 } from '@elastic/eui';
 import { useGeneratedHtmlId } from '@elastic/eui'
 import {Rating} from 'react-simple-star-rating'
 import axios from "axios";
+import {connectWallet} from "../../utils/wallet";
 
 function Evaluation() {
   const {id} = useParams()
@@ -28,6 +30,9 @@ function Evaluation() {
   const [perScore, setPerScore] = React.useState(0)
   const [secScore, setSecScore] = React.useState(0)
   const [scalScore, setScalScore] = React.useState(0)
+
+  const [userAddress, setUserAddress] = React.useState('')
+  const [toasts, setToasts] = React.useState([])
 
   React.useEffect(() => {
     axios.get(`/api/xchain/id/${id}`)
@@ -61,6 +66,16 @@ function Evaluation() {
   const navigate = useNavigate()
 
   const _saveEvaluation = () => {
+    if (!userAddress) {
+      setToasts(toasts.concat({
+        id: 'no_wallet_address',
+        title: 'Wallet Not Connected',
+        color: 'danger',
+        text: <p>please connect wallet</p>,
+      }))
+      return
+    }
+
     const evaluation = {
       decDetail,
       perDetail,
@@ -73,6 +88,7 @@ function Evaluation() {
       scalScore,
       xchainId: id,
     }
+
     axios.post(`/api/evaluation`, {evaluation})
       .then(response => {
         navigate(`/viewer/id/${id}`)
@@ -105,6 +121,20 @@ function Evaluation() {
 
   return (
     <div className="evaluation-component">
+      <div className="evaluation-wallet">
+        <EuiText>
+          <h4>{userAddress}</h4>
+        </EuiText>
+        &emsp;
+        <EuiButton
+          size='s'
+          onClick={() => { connectWallet(setUserAddress) }}
+          isDisabled={userAddress !== ''}
+          fill={!userAddress}
+        >
+          Connect Wallet
+        </EuiButton>
+      </div>
       <EuiText>
         <h1>{xchainName}</h1>
       </EuiText>
@@ -208,6 +238,11 @@ function Evaluation() {
           navigate(`/viewer/id/${id}`)
         }}>Cancel</EuiButton>
       </div>
+      <EuiGlobalToastList
+        toasts={toasts}
+        toastLifeTimeMs={5000}
+        dismissToast={() => setToasts([])}
+      />
     </div>
   )
 }

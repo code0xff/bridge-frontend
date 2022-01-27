@@ -3,6 +3,13 @@
   padding: 5%;
 }
 
+.xchain-wallet {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+}
+
 .xchain-modal-body {
   text-align: center;
 }

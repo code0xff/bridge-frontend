@@ -41,6 +41,7 @@ function Viewer() {
     support_detail: '등록된 리뷰가 존재하지 않습니다.',
     created_at: '',
   })
+  const [isAdmin, setIsAdmin] = React.useState(false)
 
   React.useEffect(() => {
     axios.get(`/api/xchain/id/${id}`)
@@ -102,6 +103,19 @@ function Viewer() {
     suffix: 'second',
   })
 
+  const _checkAdmin = (userAddress) => {
+    setUserAddress(userAddress)
+    if (userAddress) {
+      axios.get(`/api/admin/address/${userAddress}`)
+        .then(response => {
+          const isAdmin = response.data
+          setIsAdmin(isAdmin)
+        })
+        .catch(e => {
+          console.error(e)
+        })
+    }
+  }
 
   return (
     <div className='viewer-component'>
@@ -112,7 +126,7 @@ function Viewer() {
         &emsp;
         <EuiButton
           size='s'
-          onClick={() => { connectWallet(setUserAddress) }}
+          onClick={() => { connectWallet(_checkAdmin) }}
           isDisabled={userAddress !== ''}
           fill={!userAddress}
         >
@@ -133,7 +147,7 @@ function Viewer() {
         secDetail={secDetail}
         scalScore={scalScore}
         scalDetail={scalDetail}
-        userAddress={userAddress}
+        isAdmin={isAdmin}
         refDetail={refDetail}
         id={id}
       />

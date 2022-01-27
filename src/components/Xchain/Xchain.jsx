@@ -13,15 +13,18 @@ import {
   EuiForm,
   EuiFormRow,
   EuiSpacer,
-  EuiImage,
+  EuiImage, EuiText,
 } from '@elastic/eui'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import {connectWallet} from "../../utils/wallet"
 
 function Xchain() {
   const [modalVisible, setModalVisible] = React.useState(false)
   const [selectedXchain, setSelectedXchain] = React.useState(null)
   const [loadedXchains, setLoadedXchains] = React.useState([])
+  const [isAdmin, setIsAdmin] = React.useState(false)
+  const [userAddress, setUserAddress] = React.useState('')
 
   const navigate = useNavigate()
 
@@ -45,6 +48,20 @@ function Xchain() {
     setModalVisible(false)
   }
 
+  const _checkAdmin = (userAddress) => {
+    setUserAddress(userAddress)
+    if (userAddress) {
+      axios.get(`/api/admin/address/${userAddress}`)
+        .then(response => {
+          const isAdmin = response.data
+          setIsAdmin(isAdmin)
+        })
+        .catch(e => {
+          console.error(e)
+        })
+    }
+  }
+
   const _renderXchains = () => {
     if (!loadedXchains) {
       return
@@ -52,21 +69,23 @@ function Xchain() {
     let rowSize = parseInt(loadedXchains.length / 4)
 
     const groupComponents = []
-    groupComponents.push(
-      <EuiFlexGroup gutterSize="s">
-        <EuiFlexItem>
-          <EuiCard
-            title="Add New Xchain"
-            onClick={() => {
-              navigate("/creator")
-            }}
-          />
-        </EuiFlexItem>
-      </EuiFlexGroup>
-    )
-    groupComponents.push(
-      <EuiSpacer />
-    )
+    if (isAdmin) {
+      groupComponents.push(
+        <EuiFlexGroup gutterSize="s">
+          <EuiFlexItem>
+            <EuiCard
+              title="Add New Xchain"
+              onClick={() => {
+                navigate("/creator")
+              }}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      )
+      groupComponents.push(
+        <EuiSpacer />
+      )
+    }
     for (let i = 0; i <= rowSize; i++) {
       const itemCompnents = []
       for (let j = 4 * i; j < 4 * (i + 1); j++) {
@@ -110,11 +129,26 @@ function Xchain() {
 
   return (
     <div className="xchain-component">
+      <div className="xchain-wallet">
+        <EuiText>
+          <h4>{userAddress}</h4>
+        </EuiText>
+        &emsp;
+        <EuiButton
+          size='s'
+          onClick={() => { connectWallet(_checkAdmin) }}
+          isDisabled={userAddress !== ''}
+          fill={!userAddress}
+        >
+          Connect Wallet
+        </EuiButton>
+      </div>
+      <EuiSpacer/>
       {_renderXchains()}
       {
         modalVisible ?
           <EuiOverlayMask>
-            <EuiModal onClose={_closeModal} initialFocus="[name=popswitch]">
+            <EuiModal onClose={_closeModal}>
               <EuiModalHeader>
                 <EuiModalHeaderTitle>{`${selectedXchain.xchain_en_name}${selectedXchain.xchain_name ? ' (' + selectedXchain.xchain_name + ')' : ''}`}</EuiModalHeaderTitle>
               </EuiModalHeader>

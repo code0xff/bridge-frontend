@@ -93,7 +93,6 @@ function Feedback() {
         <h1># User Feedback</h1>
       </EuiText>
       <EuiSpacer/>
-
       <EuiPanel paddingSize="l">
         <EuiText>
           <h2>01 수수료 (Fee)</h2>
