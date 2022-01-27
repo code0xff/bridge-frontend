@@ -22,6 +22,7 @@ function EvaluationViewer(props) {
     secDetail,
     scalScore,
     scalDetail,
+    refDetail,
     userAddress,
     id,
   } = props
@@ -86,6 +87,16 @@ function EvaluationViewer(props) {
           <EuiSpacer />
           <EuiMarkdownFormat>
             {scalDetail}
+          </EuiMarkdownFormat>
+          <EuiHorizontalRule/>
+          <EuiText>
+            <h2>
+              05 현황 (Current Status)
+            </h2>
+          </EuiText>
+          <EuiSpacer />
+          <EuiMarkdownFormat>
+            {refDetail}
           </EuiMarkdownFormat>
         </EuiAccordion>
       </EuiPanel>

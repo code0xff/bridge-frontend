@@ -81,7 +81,7 @@ function Xchain() {
                     src={loadedXchains[j].xchain_image}
                   />
                 }
-                title={<h3>{loadedXchains[j].xchain_name}<br/>{loadedXchains[j].xchain_en_name}</h3>}
+                title={loadedXchains[j].xchain_en_name}
                 description={loadedXchains[j].xchain_detail}
                 onClick={() => {_onClickXchain(loadedXchains[j])}}
               />
@@ -116,7 +116,7 @@ function Xchain() {
           <EuiOverlayMask>
             <EuiModal onClose={_closeModal} initialFocus="[name=popswitch]">
               <EuiModalHeader>
-                <EuiModalHeaderTitle>{`${selectedXchain.xchain_name} (${selectedXchain.xchain_en_name})`}</EuiModalHeaderTitle>
+                <EuiModalHeaderTitle>{`${selectedXchain.xchain_en_name}${selectedXchain.xchain_name ? ' (' + selectedXchain.xchain_name + ')' : ''}`}</EuiModalHeaderTitle>
               </EuiModalHeader>
               <EuiModalBody>
                 <div className='xchain-modal-body'>

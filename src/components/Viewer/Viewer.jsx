@@ -20,6 +20,7 @@ function Viewer() {
   const [perDetail, setPerDetail] = React.useState('')
   const [secDetail, setSecDetail] = React.useState('')
   const [scalDetail, setScalDetail] = React.useState('')
+  const [refDetail, setRefDetail] = React.useState('')
 
   const [userAddress, setUserAddress] = React.useState('')
 
@@ -59,6 +60,7 @@ function Viewer() {
         setPerDetail(evaluation.per_detail)
         setSecDetail(evaluation.sec_detail)
         setScalDetail(evaluation.scal_detail)
+        setRefDetail(evaluation.ref_detail)
         setDecScore(evaluation.dec_score)
         setPerScore(evaluation.per_score)
         setSecScore(evaluation.sec_score)
@@ -132,6 +134,7 @@ function Viewer() {
         scalScore={scalScore}
         scalDetail={scalDetail}
         userAddress={userAddress}
+        refDetail={refDetail}
         id={id}
       />
       <EuiSpacer/>

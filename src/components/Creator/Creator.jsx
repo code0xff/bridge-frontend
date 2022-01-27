@@ -36,7 +36,7 @@ function Creator() {
         return
       }
 
-      if (xchainName.trim() && xchainEnName.trim() && xchainImage.trim() && xchainDetail.trim()) {
+      if (xchainEnName.trim() && xchainImage.trim() && xchainDetail.trim()) {
         const xchain = { xchainName, xchainEnName, xchainImage, xchainDetail}
         await axios.post(`/api/xchain`, { xchain })
         navigate('/xchain')
@@ -81,18 +81,18 @@ function Creator() {
       <EuiSpacer />
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h2>01 이름 (Name)</h2>
+          <h2>01 영문명 (English Name)</h2>
         </EuiText>
         <EuiSpacer />
-          <EuiFieldText fullWidth={true} onChange={(e) => {setXchainName(e.target.value)}}/>
+        <EuiFieldText fullWidth={true} onChange={(e) => {setXchainEnName(e.target.value)}}/>
       </EuiPanel>
       <EuiSpacer />
       <EuiPanel paddingSize="l">
         <EuiText>
-          <h2>02 영문명 (English Name)</h2>
+          <h2>02 한글명 (Korean Name, Optional)</h2>
         </EuiText>
         <EuiSpacer />
-        <EuiFieldText fullWidth={true} onChange={(e) => {setXchainEnName(e.target.value)}}/>
+          <EuiFieldText fullWidth={true} onChange={(e) => {setXchainName(e.target.value)}}/>
       </EuiPanel>
       <EuiSpacer />
       <EuiPanel paddingSize="l">

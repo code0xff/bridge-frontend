@@ -22,6 +22,7 @@ function Evaluation() {
   const [perDetail, setPerDetail] = React.useState('')
   const [secDetail, setSecDetail] = React.useState('')
   const [scalDetail, setScalDetail] = React.useState('')
+  const [refDetail, setRefDetail] = React.useState('')
 
   const [decScore, setDecScore] = React.useState(0)
   const [perScore, setPerScore] = React.useState(0)
@@ -46,6 +47,7 @@ function Evaluation() {
         setPerDetail(evaluation.per_detail)
         setSecDetail(evaluation.sec_detail)
         setScalDetail(evaluation.scal_detail)
+        setRefDetail(evaluation.ref_detail)
         setDecScore(evaluation.dec_score)
         setPerScore(evaluation.per_score)
         setSecScore(evaluation.sec_score)
@@ -64,6 +66,7 @@ function Evaluation() {
       perDetail,
       secDetail,
       scalDetail,
+      refDetail,
       decScore,
       perScore,
       secScore,
@@ -95,7 +98,10 @@ function Evaluation() {
     prefix: 'multipleAccordions',
     suffix: 'fourth',
   })
-
+  const multipleAccordionsId__5 = useGeneratedHtmlId({
+    prefix: 'multipleAccordions',
+    suffix: 'fifth',
+  })
 
   return (
     <div className="evaluation-component">
@@ -178,6 +184,21 @@ function Evaluation() {
           <Rating showTooltip ratingValue={scalScore} onClick={(scalScore) => {
             setScalScore(scalScore)
           }} size="40px"/>
+        </EuiAccordion>
+      </EuiPanel>
+      <EuiSpacer />
+      <EuiPanel paddingSize="l">
+        <EuiAccordion
+          id={multipleAccordionsId__5}
+          arrowDisplay="none"
+          buttonContent={
+            <EuiText>
+              <h2>05 현황 (Current Status)</h2>
+            </EuiText>
+          }
+          paddingSize="l"
+        >
+          <Editor value={refDetail} setValue={setRefDetail}/>
         </EuiAccordion>
       </EuiPanel>
       <EuiSpacer />
