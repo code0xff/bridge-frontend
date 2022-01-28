@@ -116,7 +116,7 @@ _* 상위 항목일수록 범용성이 높다고 판단_
             </h2>
           </EuiText>
           <EuiSpacer />
-          <Rating ratingValue={decScore} showTooltip readonly={true} size="40px"/>
+          <Rating ratingValue={decScore} showTooltip allowHalfIcon readonly={true} size="40px"/>
           <EuiSpacer />
           <EuiMarkdownFormat>
             {decDetail}
@@ -128,7 +128,7 @@ _* 상위 항목일수록 범용성이 높다고 판단_
             </h2>
           </EuiText>
           <EuiSpacer />
-          <Rating ratingValue={perScore} showTooltip readonly={true} size="40px"/>
+          <Rating ratingValue={perScore} showTooltip readonly={true} allowHalfIcon size="40px"/>
           <EuiSpacer />
           <EuiMarkdownFormat>
             {perDetail}
@@ -140,7 +140,7 @@ _* 상위 항목일수록 범용성이 높다고 판단_
             </h2>
           </EuiText>
           <EuiSpacer />
-          <Rating ratingValue={secScore} showTooltip readonly={true} size="40px"/>
+          <Rating ratingValue={secScore} showTooltip readonly={true} allowHalfIcon size="40px"/>
           <EuiSpacer />
           <EuiMarkdownFormat>
             {secDetail}
@@ -148,11 +148,11 @@ _* 상위 항목일수록 범용성이 높다고 판단_
           <EuiHorizontalRule/>
           <EuiText>
             <h2>
-              04 확장성 (Scalability) <EuiButtonEmpty color="danger" onClick={() => {_showEvaluationStandard('scalability')}}><EuiIcon type="alert" size="xl" /></EuiButtonEmpty>
+              04 범용성 (Versatility) <EuiButtonEmpty color="danger" onClick={() => {_showEvaluationStandard('scalability')}}><EuiIcon type="alert" size="xl" /></EuiButtonEmpty>
             </h2>
           </EuiText>
           <EuiSpacer />
-          <Rating ratingValue={scalScore} showTooltip readonly={true} size="40px"/>
+          <Rating ratingValue={scalScore} showTooltip allowHalfIcon readonly={true} size="40px"/>
           <EuiSpacer />
           <EuiMarkdownFormat>
             {scalDetail}

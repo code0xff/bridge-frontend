@@ -39,11 +39,15 @@ function FeedbackViewerPart(props) {
           <p>{detail ? detail : ''}</p>
         </EuiText>
       </EuiComment>
-      <Link to={`/feedback/detail/id/${id}/type/${type}`}>
+      {
+        address ? 
+        <Link to={`/feedback/detail/id/${id}/type/${type}`}>
         <EuiButtonEmpty>
           view more feedbacks ...
         </EuiButtonEmpty>
-      </Link>
+        </Link> :
+        null
+      }
     </div>
   )
 }

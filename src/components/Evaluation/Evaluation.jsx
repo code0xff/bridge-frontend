@@ -157,7 +157,7 @@ function Evaluation() {
         >
           <Editor value={decDetail} setValue={setDecDetail}/>
           <EuiSpacer/>
-          <Rating showTooltip ratingValue={decScore} onClick={(decScore) => {
+          <Rating showTooltip ratingValue={decScore} allowHalfIcon onClick={(decScore) => {
             setDecScore(decScore)
           }} size="40px"/>
         </EuiAccordion>
@@ -175,7 +175,7 @@ function Evaluation() {
           paddingSize="l"
         >
           <Editor value={perDetail} setValue={setPerDetail}/>
-          <Rating showTooltip ratingValue={perScore} onClick={(perScore) => {
+          <Rating showTooltip ratingValue={perScore} allowHalfIcon onClick={(perScore) => {
             setPerScore(perScore)
           }} size="40px"/>
         </EuiAccordion>
@@ -193,7 +193,7 @@ function Evaluation() {
           paddingSize="l"
         >
           <Editor value={secDetail} setValue={setSecDetail}/>
-          <Rating showTooltip ratingValue={secScore} onClick={(secScore) => {
+          <Rating showTooltip ratingValue={secScore} allowHalfIcon onClick={(secScore) => {
             setSecScore(secScore)
           }} size="40px"/>
         </EuiAccordion>
@@ -205,13 +205,13 @@ function Evaluation() {
           arrowDisplay="none"
           buttonContent={
             <EuiText>
-              <h2>04 확장성 (Scalability)</h2>
+              <h2>04 범용성 (Versatility)</h2>
             </EuiText>
           }
           paddingSize="l"
         >
           <Editor value={scalDetail} setValue={setScalDetail}/>
-          <Rating showTooltip ratingValue={scalScore} onClick={(scalScore) => {
+          <Rating showTooltip ratingValue={scalScore} allowHalfIcon onClick={(scalScore) => {
             setScalScore(scalScore)
           }} size="40px"/>
         </EuiAccordion>
