@@ -155,12 +155,12 @@ function Xchain() {
               <EuiModalBody>
                 <div className='xchain-modal-body'>
                   <EuiForm>
-                    <EuiFormRow>
+                    <EuiFormRow fullWidth>
                       <Link to={`/viewer/id/${selectedXchain.xchain_id}`}>
                         <EuiButton size='s'>Get Information</EuiButton>
                       </Link>
                     </EuiFormRow>
-                    <EuiFormRow>
+                    <EuiFormRow fullWidth>
                       <Link to={`/feedback/name/${selectedXchain.xchain_en_name}/id/${selectedXchain.xchain_id}`}>
                         <EuiButton color='success' size='s'>User Feedback</EuiButton>
                       </Link>
