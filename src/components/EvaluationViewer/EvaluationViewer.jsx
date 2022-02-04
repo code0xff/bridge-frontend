@@ -136,19 +136,7 @@ _* 상위 항목일수록 범용성이 높다고 판단_
           <EuiHorizontalRule/>
           <EuiText>
             <h2>
-              03 보안 (Security) <EuiButtonEmpty color="danger" onClick={() => {_showEvaluationStandard('security')}}><EuiIcon type="alert" size="xl" /></EuiButtonEmpty>
-            </h2>
-          </EuiText>
-          <EuiSpacer />
-          <Rating ratingValue={secScore} showTooltip readonly={true} allowHalfIcon size="40px"/>
-          <EuiSpacer />
-          <EuiMarkdownFormat>
-            {secDetail}
-          </EuiMarkdownFormat>
-          <EuiHorizontalRule/>
-          <EuiText>
-            <h2>
-              04 범용성 (Versatility) <EuiButtonEmpty color="danger" onClick={() => {_showEvaluationStandard('scalability')}}><EuiIcon type="alert" size="xl" /></EuiButtonEmpty>
+              03 범용성 (Versatility) <EuiButtonEmpty color="danger" onClick={() => {_showEvaluationStandard('scalability')}}><EuiIcon type="alert" size="xl" /></EuiButtonEmpty>
             </h2>
           </EuiText>
           <EuiSpacer />
@@ -156,6 +144,16 @@ _* 상위 항목일수록 범용성이 높다고 판단_
           <EuiSpacer />
           <EuiMarkdownFormat>
             {scalDetail}
+          </EuiMarkdownFormat>
+          <EuiHorizontalRule/>
+          <EuiText>
+            <h2>
+              04 보안 (Security) <EuiButtonEmpty color="danger" onClick={() => {_showEvaluationStandard('security')}}><EuiIcon type="alert" size="xl" /></EuiButtonEmpty>
+            </h2>
+          </EuiText>
+          <EuiSpacer />
+          <EuiMarkdownFormat>
+            {secDetail}
           </EuiMarkdownFormat>
           <EuiHorizontalRule/>
           <EuiText>

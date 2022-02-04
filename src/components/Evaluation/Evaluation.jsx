@@ -183,29 +183,11 @@ function Evaluation() {
       <EuiSpacer />
       <EuiPanel paddingSize="l">
         <EuiAccordion
-          id={multipleAccordionsId__3}
-          arrowDisplay="none"
-          buttonContent={
-            <EuiText>
-              <h2>03 보안 (Security)</h2>
-            </EuiText>
-          }
-          paddingSize="l"
-        >
-          <Editor value={secDetail} setValue={setSecDetail}/>
-          <Rating showTooltip ratingValue={secScore} allowHalfIcon onClick={(secScore) => {
-            setSecScore(secScore)
-          }} size="40px"/>
-        </EuiAccordion>
-      </EuiPanel>
-      <EuiSpacer />
-      <EuiPanel paddingSize="l">
-        <EuiAccordion
           id={multipleAccordionsId__4}
           arrowDisplay="none"
           buttonContent={
             <EuiText>
-              <h2>04 범용성 (Versatility)</h2>
+              <h2>03 범용성 (Versatility)</h2>
             </EuiText>
           }
           paddingSize="l"
@@ -214,6 +196,21 @@ function Evaluation() {
           <Rating showTooltip ratingValue={scalScore} allowHalfIcon onClick={(scalScore) => {
             setScalScore(scalScore)
           }} size="40px"/>
+        </EuiAccordion>
+      </EuiPanel>
+      <EuiSpacer />
+      <EuiPanel paddingSize="l">
+        <EuiAccordion
+          id={multipleAccordionsId__3}
+          arrowDisplay="none"
+          buttonContent={
+            <EuiText>
+              <h2>04 보안 (Security)</h2>
+            </EuiText>
+          }
+          paddingSize="l"
+        >
+          <Editor value={secDetail} setValue={setSecDetail}/>
         </EuiAccordion>
       </EuiPanel>
       <EuiSpacer />
