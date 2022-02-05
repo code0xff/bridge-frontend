@@ -112,7 +112,7 @@ _* 상위 항목일수록 범용성이 높다고 판단_
         >
           <EuiText>
             <h2>
-              01 탈중앙성 (Dectralization) <EuiButtonEmpty color="danger" onClick={() => {_showEvaluationStandard('decentralization')}}><EuiIcon type="alert" size="xl" /></EuiButtonEmpty>
+              01 탈중앙성 (Decentralization) <EuiButtonEmpty color="danger" onClick={() => {_showEvaluationStandard('decentralization')}}><EuiIcon type="alert" size="xl" /></EuiButtonEmpty>
             </h2>
           </EuiText>
           <EuiSpacer />

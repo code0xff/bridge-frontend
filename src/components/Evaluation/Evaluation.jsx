@@ -150,7 +150,7 @@ function Evaluation() {
           initialIsOpen={true}
           buttonContent={
             <EuiText>
-              <h2>01 탈중앙성 (Dectralization)</h2>
+              <h2>01 탈중앙성 (Decentralization)</h2>
             </EuiText>
           }
           paddingSize="l"
