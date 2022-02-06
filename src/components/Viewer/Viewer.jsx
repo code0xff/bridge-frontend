@@ -164,7 +164,7 @@ function Viewer() {
       <EuiSpacer/>
       <div className="viewer-to-xchain">
         <Link to={`/xchain`}>
-          <EuiButton color="text" fill>To Xchain</EuiButton>
+          <EuiButton color="text" fill>To Bridges</EuiButton>
         </Link>
       </div>
     </div>

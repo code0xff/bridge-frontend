@@ -16,12 +16,12 @@ function Index() {
         <EuiFlexItem grow={false}>
           <EuiTitle size="l">
             <h1>
-              Cross Chain Evaluation Platform
+              Bridge Evaluation Platform
             </h1>
           </EuiTitle>
           <EuiSpacer />
           <Link to="/xchain">
-            <EuiButton color="primary" fill>Go To Xchains</EuiButton>
+            <EuiButton color="primary" fill>Go To Bridges</EuiButton>
           </Link>
         </EuiFlexItem>
       </EuiFlexGroup>
