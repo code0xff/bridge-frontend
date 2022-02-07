@@ -76,7 +76,7 @@ function Creator() {
         </EuiButton>
       </div>
       <EuiText>
-        <h1># Add New Xchain</h1>
+        <h1># Add New Bridge</h1>
       </EuiText>
       <EuiSpacer />
       <EuiPanel paddingSize="l">

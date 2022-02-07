@@ -74,7 +74,7 @@ function Xchain() {
         <EuiFlexGroup gutterSize="s">
           <EuiFlexItem>
             <EuiCard
-              title="Add New Xchain"
+              title="Add New Bridge"
               onClick={() => {
                 navigate("/creator")
               }}
